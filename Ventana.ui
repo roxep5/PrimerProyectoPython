@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>951</width>
+    <width>947</width>
     <height>604</height>
    </rect>
   </property>
@@ -49,6 +49,8 @@
      <font>
       <family>Times New Roman</family>
       <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -68,6 +70,8 @@
      <font>
       <family>Times New Roman</family>
       <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -90,8 +94,8 @@
    <widget class="Line" name="line_2">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>240</y>
+      <x>30</x>
+      <y>330</y>
       <width>891</width>
       <height>16</height>
      </rect>
@@ -105,7 +109,7 @@
      <rect>
       <x>470</x>
       <y>190</y>
-      <width>91</width>
+      <width>41</width>
       <height>21</height>
      </rect>
     </property>
@@ -113,6 +117,8 @@
      <font>
       <family>Times New Roman</family>
       <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="text">
@@ -123,7 +129,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>300</y>
+      <y>400</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -141,9 +147,9 @@
    <widget class="QPushButton" name="btnsalir">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>300</y>
-      <width>101</width>
+      <x>470</x>
+      <y>400</y>
+      <width>91</width>
       <height>41</height>
      </rect>
     </property>
@@ -160,7 +166,7 @@
    <widget class="QLineEdit" name="lnDNI">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>110</x>
       <y>150</y>
       <width>261</width>
       <height>20</height>
@@ -170,7 +176,7 @@
    <widget class="QLineEdit" name="lnApel">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>110</x>
       <y>190</y>
       <width>341</width>
       <height>20</height>
@@ -209,13 +215,199 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="lblSex">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>300</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Sexo</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblMetodoPago">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>300</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Métodos de pago</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblDirec">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Direccion</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>250</y>
+      <width>341</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cmbProv">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>250</y>
+      <width>261</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblProv">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>250</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Provincia</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>300</y>
+      <width>171</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horlaySex">
+     <item>
+      <widget class="QRadioButton" name="rbtFem">
+       <property name="text">
+        <string>Femenino</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="rbtMasc">
+       <property name="text">
+        <string>Masculino</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>300</y>
+      <width>223</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horlayPago">
+     <item>
+      <widget class="QCheckBox" name="chkEfectivo">
+       <property name="text">
+        <string>Efectivo</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chkTarjeta">
+       <property name="text">
+        <string>Tarjeta</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chkTransf">
+       <property name="text">
+        <string>Transferencia</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>lbldni</zorder>
+   <zorder>lblxestion</zorder>
+   <zorder>lblapel</zorder>
+   <zorder>line</zorder>
+   <zorder>line_2</zorder>
+   <zorder>lblnome</zorder>
+   <zorder>btnOk</zorder>
+   <zorder>btnsalir</zorder>
+   <zorder>lnDNI</zorder>
+   <zorder>lnApel</zorder>
+   <zorder>lnNome</zorder>
+   <zorder>lblValido</zorder>
+   <zorder>lblSex</zorder>
+   <zorder>lblMetodoPago</zorder>
+   <zorder>rbtFem</zorder>
+   <zorder>rbtMasc</zorder>
+   <zorder>chkEfectivo</zorder>
+   <zorder>chkTarjeta</zorder>
+   <zorder>chkTransf</zorder>
+   <zorder>lblDirec</zorder>
+   <zorder>lineEdit</zorder>
+   <zorder>cmbProv</zorder>
+   <zorder>lblProv</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>951</width>
+     <width>947</width>
      <height>21</height>
     </rect>
    </property>
