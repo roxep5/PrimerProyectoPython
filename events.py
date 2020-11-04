@@ -33,3 +33,39 @@ class Eventos():
 
         except Exception as error:
             print('Error: %s'%str(error))
+
+    def selSexo():
+        try:
+            if var.ui.rbtFem.isChecked():
+                print("femenino")
+            if var.ui.rbtMasc.isChecked():
+                print("masculino")
+        except Exception as error:
+            print('Error: %s '% str(error))
+
+    def selPago():
+        try:
+            if var.ui.chkEfectivo.isChecked():
+                print('pagas con efectivo')
+            if var.ui.chkTarjeta.isChecked():
+                print('pagas con tarjeta')
+            if var.ui.chkTransf.isChecked():
+                print('pagas con Transferencia')
+        except Exception as error:
+            print('Error: %s '%str(error))
+
+    def cargarProv():
+        try:
+            prov=['','A Coruña','Lugo','Ourense','Pontevedra']
+            for i in prov:
+                var.ui.cmbProv.addItem(i)
+        except Exception as error:
+            print('Error: %s ' % str(error))
+
+
+    def selProv(prov):
+        try:
+            print('Has se leccionado la provincia de ', prov)
+            return prov
+        except Exception as error:
+            print('Error: %s ' % str(error))
