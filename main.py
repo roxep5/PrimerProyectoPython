@@ -1,5 +1,6 @@
 from datetime import *
 
+import conexion
 from Calendar import *
 from VenSalir import *
 from Ventana import *
@@ -31,6 +32,8 @@ class Main(QtWidgets.QMainWindow):
             super(Main, self).__init__()
             var.ui=Ui_MainWindow()
             var.ui.setupUi(self)
+            #conexion.Conexion.db_connect(var.filedb)
+            conexion.Conexion()
             '''
             conexión con los eventos
             '''
