@@ -5,23 +5,27 @@ import sys
 
 class Eventos():
 
-    def Saludo():
+    # def Saludo():
+    #   try:
+    #      print('Error: %s '%str(error))
+    def Salir(event):
         try:
-            var.ui.lblxestion.setText('Has pulsado el boton')
+            var.dlgsalir.show()
+            if var.dlgsalir.exec_():
+                sys.exit()
+            else:
+                var.dlgsalir.hide()
+                event.ignore()
         except Exception as error:
-            print('Error: %s '%str(error))
-    def Salir():
-        try:
-            sys.exit()
-        except Exception as error:
-            print("Error %s:  "%str(error))
+            print("Error a %s:  " % str(error))
+
     '''
     eventos clientes
     '''
 
     def validoDNI():
         try:
-            dni=var.ui.lnDNI.text()
+            dni = var.ui.lnDNI.text()
             if Clients.Clientes.validarDNI(dni):
                 var.ui.lblValido.setStyleSheet('QLabel {color: green;}')
                 var.ui.lblValido.setText('V')
@@ -32,40 +36,14 @@ class Eventos():
                 var.ui.lnDNI.setText(dni.upper())
 
         except Exception as error:
-            print('Error: %s'%str(error))
-
-    def selSexo():
-        try:
-            if var.ui.rbtFem.isChecked():
-                print("femenino")
-            if var.ui.rbtMasc.isChecked():
-                print("masculino")
-        except Exception as error:
-            print('Error: %s '% str(error))
-
-    def selPago():
-        try:
-            if var.ui.chkEfectivo.isChecked():
-                print('pagas con efectivo')
-            if var.ui.chkTarjeta.isChecked():
-                print('pagas con tarjeta')
-            if var.ui.chkTransf.isChecked():
-                print('pagas con Transferencia')
-        except Exception as error:
-            print('Error: %s '%str(error))
+            print('Error: %s' % str(error))
 
     def cargarProv():
         try:
-            prov=['','A Coruña','Lugo','Ourense','Pontevedra']
+            prov = ['', 'A Coruña', 'Lugo', 'Ourense', 'Pontevedra']
             for i in prov:
                 var.ui.cmbProv.addItem(i)
         except Exception as error:
             print('Error: %s ' % str(error))
 
 
-    def selProv(prov):
-        try:
-            print('Has se leccionado la provincia de ', prov)
-            return prov
-        except Exception as error:
-            print('Error: %s ' % str(error))

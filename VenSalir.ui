@@ -16,7 +16,7 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <widget class="QDialogButtonBox" name="btnYN">
+  <widget class="QDialogButtonBox" name="btnboxSalir">
    <property name="geometry">
     <rect>
      <x>-70</x>
@@ -64,7 +64,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="img/aviso.qrc">:/newPrefix/aviso2.png</pixmap>
+    <pixmap>:/newPrefix/aviso2.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -76,7 +76,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>btnYN</sender>
+   <sender>btnboxSalir</sender>
    <signal>accepted()</signal>
    <receiver>VenSalir</receiver>
    <slot>accept()</slot>
@@ -92,7 +92,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>btnYN</sender>
+   <sender>btnboxSalir</sender>
    <signal>rejected()</signal>
    <receiver>VenSalir</receiver>
    <slot>reject()</slot>
