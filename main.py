@@ -32,8 +32,8 @@ class Main(QtWidgets.QMainWindow):
             super(Main, self).__init__()
             var.ui=Ui_MainWindow()
             var.ui.setupUi(self)
-            #conexion.Conexion.db_connect(var.filedb)
-            conexion.Conexion()
+            conexion.Conexion.db_connect(var.filedb)
+            #conexion.Conexion()
             '''
             conexión con los eventos
             '''

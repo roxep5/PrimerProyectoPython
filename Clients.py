@@ -54,15 +54,18 @@ class Clientes():
 
     def selPago():
         try:
-            if var.ui.chkEfectivo.isChecked():
-                # print('pagas con efectivo')
-                var.pay.append('Efectivo')
-            if var.ui.chkTarjeta.isChecked():
-                # print('pagas con tarjeta')
-                var.pay.append('Tarjeta')
-            if var.ui.chkTransf.isChecked():
-                # print('pagas con Transferencia')
-                var.pay.append('Transferencia')
+            var.pay=[]
+            for i, data in enumerate(var.ui.horlayPago.buttons())
+                if data.isChecked() and i==0:
+                    # print('pagas con efectivo')
+                    var.pay.append('Efectivo')
+                if data.isChecked() and i==1:
+                    # print('pagas con tarjeta')
+                    var.pay.append('Tarjeta')
+                if data.isChecked() and i==2:
+                    # print('pagas con Transferencia')
+                    var.pay.append('Transferencia')
+            return var.pay
         except Exception as error:
             print('Error: %s ' % str(error))
 
@@ -79,19 +82,23 @@ class Clientes():
                     k+=1
             newcli.append(vpro)
             #elimina duplicados
-            var.pay=set(var.pay)
-            for j in var.pay:
-                newcli.append(j)
-           # newcli.append(var.sex)
-            print(newcli)
-            print(clitab)
-            row=0
-            column=0
-            var.ui.cliTable.insertRow(row)
-            for registro in clitab:
-                cell=QTableWidgetItem(registro)
-                var.ui.cliTable.setItem(row,column,cell)
-                column+=1
+            var.pay2=Clientes.selPago()
+            newcli.append(var.sex)
+            newcli.append(var.pay2)
+            if client:
+
+
+                row=0
+                column=0
+                var.ui.cliTable.insertRow(row)
+                for registro in clitab:
+                    cell=QTableWidgetItem(registro)
+                    var.ui.cliTable.setItem(row,column,cell)
+                    column+=1
+                conexion.Conexion.cargarCli(newcli)
+            else:
+                print('Faltan datos')
+            Clientes.limpiarCli(client)
         except Exception as error:
             print('Error: %s ' % str(error))
     def cargarCliente(self):
@@ -126,3 +133,4 @@ class Clientes():
             var.ui.lblValidar.setText('')
         except Exception as error:
             print('Error: %s ' % str(error))
+            #ver que hostia falta

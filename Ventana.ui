@@ -55,66 +55,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="Line" name="line">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>60</y>
-        <width>861</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QWidget" name="">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>100</y>
-        <width>441</width>
-        <height>60</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
-       <item>
-        <widget class="QLabel" name="lblFecha">
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Fecha de alta</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lnCalendar"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnCalendar">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="img/calendar.qrc">
-           <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
@@ -277,8 +217,8 @@
        <rect>
         <x>190</x>
         <y>290</y>
-        <width>542</width>
-        <height>23</height>
+        <width>610</width>
+        <height>64</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -365,29 +305,68 @@
        </item>
       </layout>
      </widget>
-     <widget class="Line" name="line_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>310</y>
-        <width>891</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>91</x>
         <y>670</y>
-        <width>261</width>
+        <width>801</width>
         <height>51</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QPushButton" name="btnGrabar">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Grabar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnModificar">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Modificar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnEliminar">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Eliminar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Limpiar</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPushButton" name="btnOk">
          <property name="font">
@@ -419,13 +398,20 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>110</y>
-        <width>429</width>
-        <height>41</height>
+        <x>80</x>
+        <y>100</y>
+        <width>851</width>
+        <height>60</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>codcliente</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLabel" name="lbldni">
          <property name="minimumSize">
@@ -457,15 +443,41 @@
         <widget class="QLineEdit" name="lnDNI">
          <property name="minimumSize">
           <size>
-           <width>300</width>
+           <width>150</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>300</width>
+           <width>20</width>
            <height>16777215</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -488,6 +500,41 @@
          </property>
          <property name="text">
           <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblFecha">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Fecha de alta</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lnCalendar"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnCalendar">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/calendar.qrc">
+           <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>50</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -517,7 +564,7 @@
        <widget class="QTableWidget" name="cliTable">
         <property name="geometry">
          <rect>
-          <x>-10</x>
+          <x>0</x>
           <y>0</y>
           <width>811</width>
           <height>321</height>
@@ -556,10 +603,6 @@
      </attribute>
     </widget>
    </widget>
-   <zorder>tabWidget</zorder>
-   <zorder>lblFecha</zorder>
-   <zorder>lnCalendar</zorder>
-   <zorder>btnCalendar</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
