@@ -277,14 +277,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chkEfectivo">
-           <property name="text">
-            <string>Efectivo</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <layout class="QHBoxLayout" name="horlayPago">
+           <item>
+            <widget class="QCheckBox" name="chkEfectivo">
+             <property name="text">
+              <string>Efectivo</string>
+             </property>
+            </widget>
+           </item>
            <item>
             <widget class="QCheckBox" name="chkTarjeta">
              <property name="text">

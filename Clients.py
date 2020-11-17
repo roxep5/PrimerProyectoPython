@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 
+import conexion
 import var
 
 
@@ -55,7 +56,8 @@ class Clientes():
     def selPago():
         try:
             var.pay=[]
-            for i, data in enumerate(var.ui.horlayPago.buttons())
+            for i, data in enumerate(var.ui.horlayPago.buttons()):
+
                 if data.isChecked() and i==0:
                     # print('pagas con efectivo')
                     var.pay.append('Efectivo')
@@ -101,6 +103,7 @@ class Clientes():
             Clientes.limpiarCli(client)
         except Exception as error:
             print('Error: %s ' % str(error))
+
     def cargarCliente(self):
         try:
             fila=var.ui.cliTable.selectedItems()

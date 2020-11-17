@@ -32,7 +32,7 @@ class Main(QtWidgets.QMainWindow):
             super(Main, self).__init__()
             var.ui=Ui_MainWindow()
             var.ui.setupUi(self)
-            conexion.Conexion.db_connect(var.filedb)
+            conexion.Conexion.db_connect(var.filebd)
             #conexion.Conexion()
             '''
             conexión con los eventos
@@ -54,7 +54,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.cliTable.clicked.connect(Clients.Clientes.cargarCliente)
             var.ui.cliTable.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             var.ui.btnOk.clicked.connect(Clients.Clientes.showClients)
-            var.ui.btnOk.clicked.connect(Clients.Clientes.limpiarCli)
+           # var.ui.btnOk.clicked.connect(Clients.Clientes.limpiarCli)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)

@@ -26,25 +26,20 @@ class Conexion():
             print('Conexion establecida')
         return True
 
-''' def mostrarClientes(self):
-        index=0
-        query=QtSql.QSqlQuery()
-        query.prepare('select dni, apelidos, nome from clientes')
-        if query.exec_():
-            while query.next():
-                #cojo los valores
-                dni=query.value(0)
-                apelidos=query.value(1)
-                nombre=query.value(2)
-                #crea la fila
-                var.ui.cliTable.setRowCout(index+1)
-                #va metiendo los datos en cada celda de la fila
-                var.ui.cliTable.setItem(index,0,QtWidgets.QTableWidgetItem(dni))
-                var.ui.cliTable.setItem(index,1,QtWidgets.QTableWidgetItem(apelidos))
-                var.ui.cliTable.setItem(index,2,QtWidgets.QTableWidgetItem(nombre))
-        else:
-            print("Error mostrar clientes:%s"% query.lastError().text())'''
+
     def cargarCli(cliente):
         query=QtSql.QSqlQuery()
-        query.prepare('insert into clientes(dni, apellidos, nombre, fechalta, direccion, provincia, sexo, formaspago)'
+        query.prepare('insert into clientes(dni, apelidos, nome, fechalta, direccion, provincia, sexo, formaspago)'
                       'VALUES (:dni, :apellidos, :nombre, :fechalta, :direccion, :provincia, :sexo, :formaspago)')
+        query.bindValue(':dni',str(cliente[0]))
+        query.bindValue(':apelidos',str(cliente[1]))
+        query.bindValue(':nome',str(cliente[2]))
+        query.bindValue(':fechaalta',str(cliente[3]))
+        query.bindValue(':direccion',str(cliente[4]))
+        query.bindValue(':provincia',str(cliente[5]))
+        query.bindValue(':sexo',str(cliente[6]))
+        query.bindValue(':formaspago',str(cliente[7]))
+        if query.exec_():
+            print("Inserción correcta")
+        else:
+            print ("Error: ",query.lastError().text())
