@@ -37,6 +37,7 @@ class Main(QtWidgets.QMainWindow):
             '''
             conexión con los eventos
             '''
+            var.rbtsex=(var.ui.rbtFem,var.ui.rbtMasc)
             #var.ui.btnOk.clicked.connect(events.Eventos.Saludo)
             var.ui.btnsalir.clicked.connect(events.Eventos.Salir)
             var.dlgsalir=DialogSalir()

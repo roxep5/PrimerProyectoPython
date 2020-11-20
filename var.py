@@ -3,6 +3,7 @@ global ui
 global dlgsalir
 global dlgcalendar
 global sex
+global rbtsex
 pay = []
 pay2 = []
 filebd = 'empresa.db'

@@ -36,7 +36,7 @@ class Eventos():
                 var.ui.lnDNI.setText(dni.upper())
 
         except Exception as error:
-            print('Error: %s' % str(error))
+            print('Error: dni %s' % str(error))
 
     def cargarProv():
         try:
@@ -44,6 +44,6 @@ class Eventos():
             for i in prov:
                 var.ui.cmbProv.addItem(i)
         except Exception as error:
-            print('Error: %s ' % str(error))
+            print('Error: prov %s ' % str(error))
 
 
