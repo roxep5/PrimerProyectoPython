@@ -27,32 +27,6 @@ class Conexion():
         return True
 
 
-    '''def altaCli(cliente):
-
-        query=QtSql.QSqlQuery()
-        query.prepare('insert into clientes(dni, apelidos, nome, fechalta, direccion, provincia, sexo, formapago)'
-                      'VALUES (:dni, :apelidos, :nome, :fechalta, :direccion, :provincia, :sexo, :formapago)')
-        query.bindValue(':dni',str(cliente[0]))
-        query.bindValue(':apelidos',str(cliente[1]))
-        query.bindValue(':nome',str(cliente[2]))
-        query.bindValue(':fechalta',str(cliente[3]))
-        query.bindValue(':direccion',str(cliente[4]))
-        query.bindValue(':provincia',str(cliente[5]))
-        query.bindValue(':sexo',str(cliente[6]))
-        query.bindValue(':formapago',str(cliente[7]))
-        query.bindValue(':dni', "dni")
-        query.bindValue(':apelidos', "apel")
-        query.bindValue(':nome', "asd")
-        query.bindValue(':fechalta', "alta")
-        query.bindValue(':direccion', "direc")
-        query.bindValue(':provincia', "f")
-        query.bindValue(':sexo', "f")
-        query.bindValue(':formapago', "F")
-        print(cliente)
-        if query.exec_():
-            print("Inserción correcta")
-        else:
-            print ("Error: altacli ",query.lastError().text())'''
 
     def altaCli(cliente):
         query = QtSql.QSqlQuery()
@@ -69,3 +43,77 @@ class Conexion():
         query.bindValue(':formapago', str(cliente[7]))
         if query.exec_():
             print("Inserción Correcta")
+            Conexion.mostrarClientes()
+        else:
+            print("Error: altacli ", query.lastError().text())
+    def mostrarClientes(self):
+        index=0
+        query=QtSql.QSqlQuery()
+        query.prepare('select dni, apelidos, nome from clientes')
+        if query.exec_():
+            while query.next():
+                dni=query.value(0)
+                apelidos=query.value(1)
+                nombre=query.value(2)
+                var.ui.cliTable.setRowCount(index+1)
+                var.ui.cliTable.setItem(index,0,QtWidgets.QTableWidgetItem(dni))
+                var.ui.cliTable.setItem(index,1,QtWidgets.QTableWidgetItem(apelidos))
+                var.ui.cliTable.setItem(index,2,QtWidgets.QTableWidgetItem(nombre))
+                index+=1
+        else:
+            print("Error mostrar clientes: ",query.lastError().text())
+    def bajaCli(dni):
+        query=QtSql.QSqlQuery()
+        query.prepare('delete from clientes where dni= :dni')
+        query.bindValue(':dni',dni)
+        if query.exec_():
+            print('Baja cliente')
+        else:
+            print("Error baja clientes: ",query.lastError().text())
+
+    def modifCli(codigo,newdata):
+        print(codigo,"   ",newdata)
+        query=QtSql.QSqlQuery()
+        codigo=int(codigo)
+        query.prepare('update clientes set dni=:dni, apelidos=:apelidos,nome=:nome,'
+                      ' direccion=:direccion,provincia=:provincia,sexo=:sexo,formapago=:formapago where codigo=:codigo')
+        query.bindValue(':codigo',int(codigo))
+        query.bindValue(':dni', str(newdata[0]))
+        query.bindValue(':apelidos', str(newdata[1]))
+        query.bindValue(':nome', str(newdata[2]))
+        query.bindValue(':fechalta', str(newdata[3]))
+        query.bindValue(':direccion', str(newdata[4]))
+        query.bindValue(':provincia', str(newdata[5]))
+        query.bindValue(':sexo', str(newdata[6]))
+        # pagos = ' '.join(cliente[7]) si quiesesemos un texto, pero nos viene mejor meterlo como una lista
+        query.bindValue(':formapago', str(newdata[7]))
+
+        if query.exec_():
+            print('Cliente modificado')
+        else:
+            print('error modificar cliente: ',query.lastError().text())
+
+    def cargarCliente(self):
+        dni=var.ui.lnDNI.text()
+        query=QtSql.QSqlQuery()
+        print('hola')
+        query.prepare('select * from clientes where dni=:dni')
+        query.bindValue(':dni',dni)
+        if query.exec_():
+            while query.next():
+                var.ui.lblCodcli.setText(str(query.value(0)))
+                var.ui.lnCalendar.setText(str(query.value(4)))
+                var.ui.lnDir.setText(str(query.value(5)))
+                var.ui.cmbProv.setCurrentText(str(query.value(6)))
+                if str(query.value(7))=='Mujer':
+                    var.ui.rbtFem.setChecked(True)
+                    var.ui.rbtMasc.setChecked(False)
+                else:
+                    var.ui.rbtFem.setChecked(False)
+                    var.ui.rbtMasc.setChecked(True)
+                if 'Efectivo' in query.value(8):
+                    var.chkpago[0].setChecked(True)
+                if 'Tarjeta' in query.value(8):
+                    var.chkpago[1].setChecked(True)
+                if 'Transferencia' in query.value(8):
+                    var.chkpago[2].setChecked(True)

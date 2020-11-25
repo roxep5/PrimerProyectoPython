@@ -325,7 +325,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
-        <widget class="QPushButton" name="btnGrabar">
+        <widget class="QPushButton" name="btnOk">
          <property name="font">
           <font>
            <family>Times New Roman</family>
@@ -364,7 +364,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="btnLimpiar">
          <property name="font">
           <font>
            <family>Times New Roman</family>
@@ -373,19 +373,6 @@
          </property>
          <property name="text">
           <string>Limpiar</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnOk">
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Aceptar</string>
          </property>
         </widget>
        </item>
@@ -415,9 +402,24 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="lblCodcli">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:0, stop:0 rgba(66, 234, 0, 255), stop:1 rgba(255, 255, 255, 255));</string>
+         </property>
          <property name="text">
-          <string>codcliente</string>
+          <string/>
          </property>
         </widget>
        </item>

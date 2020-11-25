@@ -73,7 +73,8 @@ class Clientes():
 
     def showClients(self):
         # preparamos el registro
-        try:
+        '''try:
+
             newcli = []  # contiene todos los datos
             clitab = []  # será lo que carguemos en la tablas
             client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir]
@@ -103,7 +104,8 @@ class Clientes():
             # Clientes.limpiarCli()
         except Exception as error:
             print('Error cargar fecha lo : %s ' % str(error))
-        '''try:
+        '''
+        try:
             newcli=[]
             clitab=[]
             client=[var.ui.lnDNI,var.ui.lnApel,var.ui.lnNome,var.ui.lnCalendar,var.ui.lnDir]
@@ -135,7 +137,7 @@ class Clientes():
            # Clientes.limpiarCli(client)
         except Exception as error:
             print('Error: show %s ' % str(error))  
-            '''
+
     def cargarCliente(self):
         try:
             fila=var.ui.cliTable.selectedItems()
@@ -146,29 +148,54 @@ class Clientes():
             i=0
             for i, dato in enumerate(client):
                 dato.setText(fila[i])
+            conexion.Conexion.cargarCliente(self)
         except Exception as error:
             print('Error: cargar %s ' % str(error))
 
-    '''
-  def limpiarCli():
-        
+    def bajaCliente(self):
 
-        :param listaRbtSex:
-        :param ListaChkpay:
-        :return: none
-        
+        try:
+            dni=var.ui.lnDNI.text()
+            conexion.Conexion.bajaCli(dni)
+            conexion.Conexion.mostrarClientes(self)
+            Clientes.limpiarCli(self)
+        except Exception as error:
+            print('Error: baja %s ' % str(error))
+
+    def limpiarCli(self):
         try:
             client=[var.ui.lnDNI,var.ui.lnApel,var.ui.lnNome,var.ui.lnCalendar,var.ui.lnDir]
             for i in range(len(client)):
                 client[i].setText('')
-            var.ui.horlayPago.setExclusive(False)
+            var.ui.grpbtnPagos.setExclusive(False)
             for dato in var.sex:
-                dato.setChecked
-            for data in var.:
-                data.setChecked(False'
+                dato.setChecked(False)
+            for data in var.chkpago:
+                data.setChecked(False)
             var.ui.cmbProv.setCurrentIndex(0)
             var.ui.lblValidar.setText('')
         except Exception as error:
             print('Error: %s ' % str(error))
             #ver que hostia falta
-    '''
+    def modifCliente(self):
+        try:
+            newdata=[]
+            client=[
+                var.ui.lnDNI,
+                var.ui.lnApel,
+                var.ui.lnNome,
+                var.ui.lnCalendar,
+                var.ui.lnDir
+            ]
+            for i in client:
+                newdata.append(i.text())
+            newdata.append(var.ui.cmbProv.currentText())
+            newdata.append(var.sex)
+            var.pay=Clientes.selPago()
+            print(var.pay)
+            newdata.append(var.pay)
+            cod=var.ui.lblCodcli.text()
+            conexion.Conexion.modifCli(cod,newdata)
+            conexion.Conexion.mostrarClientes(self)
+        except Exception as error:
+            print('Error: %s ' % str(error))
