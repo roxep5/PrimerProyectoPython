@@ -44,6 +44,7 @@ class Conexion():
         if query.exec_():
             print("Inserción Correcta")
             Conexion.mostrarClientes()
+            var.ui.lblstatus.setText('Cliente con dni ' + cliente[0]+'')
         else:
             print("Error: altacli ", query.lastError().text())
     def mostrarClientes(self):
@@ -68,6 +69,7 @@ class Conexion():
         query.bindValue(':dni',dni)
         if query.exec_():
             print('Baja cliente')
+            var.ui.lblstatus.setText('Cliente con dni '+dni+' dado de baja')
         else:
             print("Error baja clientes: ",query.lastError().text())
 
@@ -90,6 +92,7 @@ class Conexion():
 
         if query.exec_():
             print('Cliente modificado')
+            var.ui.lblstatus.setText('Alta con cliente dni ' + newdata[0])
         else:
             print('error modificar cliente: ',query.lastError().text())
 

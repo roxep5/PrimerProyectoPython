@@ -32,6 +32,8 @@ class Main(QtWidgets.QMainWindow):
             super(Main, self).__init__()
             var.ui=Ui_MainWindow()
             var.ui.setupUi(self)
+            var.ui.statusbar.addPermanentWidget(var.ui.lblstatus,1)
+            var.ui.lblstatus.setText('Bienvenido a 2º DAM')
             conexion.Conexion.db_connect(var.filebd)
             #conexion.Conexion()
             '''
