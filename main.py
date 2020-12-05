@@ -4,10 +4,10 @@ import conexion
 from Calendar import *
 from VenSalir import *
 from Ventana import *
-import sys
-import events
-import var
-import Clients
+import sys, events, var, Clients
+import locale
+locale.setlocale(locale.LC_ALL,'es-ES')
+
 class DialogSalir(QtWidgets.QDialog):
     def __init__(self):
         super(DialogSalir, self).__init__()
@@ -33,6 +33,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui=Ui_MainWindow()
             var.ui.setupUi(self)
             var.ui.statusbar.addPermanentWidget(var.ui.lblstatus,1)
+            var.ui.statusbar.addPermanentWidget(var.ui.lblTiempo,2)
             var.ui.lblstatus.setText('Bienvenido a 2º DAM')
             conexion.Conexion.db_connect(var.filebd)
             #conexion.Conexion()
@@ -63,6 +64,13 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btnEliminar.clicked.connect(Clients.Clientes.bajaCliente)
             var.ui.btnLimpiar.clicked.connect(Clients.Clientes.limpiarCli)
             var.ui.cliTable.clicked.connect(Clients.Clientes.cargarCliente)
+            var.ui.actionsalir.triggered.connect(events.Eventos.Salir)
+            var.ui.toolbarSalir.triggered.connect(events.Eventos.Salir)
+            var.ui.btnLimpiar.clicked.connect(Clients.Clientes.limpiarCli)
+            #var.ui.btnBuscar.clicked.connect(Clients.Clientes.buscarCli)
+            fecha = date.today()
+            var.ui.lblTiempo.setText(fecha.strftime('%A %d de %B del %Y'))
+            Clients.Clientes.valoresSpin(self)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)
