@@ -75,42 +75,11 @@ class Clientes():
 
     def showClients(self):
         # preparamos el registro
-        '''try:
-
-            newcli = []  # contiene todos los datos
-            clitab = []  # será lo que carguemos en la tablas
-            client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir]
-            k = 0
-            for i in client:
-                newcli.append(i.text())  # cargamos los valores que hay en los editline
-                if k < 3:
-                    clitab.append(i.text())
-                    k += 1
-            newcli.append(vpro)
-            newcli.append(var.sex)
-            var.pay2 = Clientes.selPago()
-            newcli.append(var.pay2)
-            if client:
-                # comprobarmos que no esté vacío lo principal
-                # aquí empieza como trabajar con la TableWidget
-                row = 0
-                column = 0
-                var.ui.cliTable.insertRow(row)
-                for registro in clitab:
-                    cell = QtWidgets.QTableWidgetItem(registro)
-                    var.ui.cliTable.setItem(row, column, cell)
-                    column += 1
-                conexion.Conexion.altaCli(newcli)
-            else:
-                print('Faltan Datos')
-            # Clientes.limpiarCli()
-        except Exception as error:
-            print('Error cargar fecha lo : %s ' % str(error))
-        '''
         try:
             newcli = []
             clitab = []
-            client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir]
+            client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir,var.ui.spinEdad]
+            intedad=client[5]
             k = 0
             for i in client:
                 newcli.append(i.text())
@@ -166,17 +135,24 @@ class Clientes():
     def limpiarCli(self):
         try:
             client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir]
+
             for i in range(len(client)):
                 client[i].setText('')
+
             var.ui.grpbtnPagos.setExclusive(False)
-            for dato in var.sex:
+            print("range")
+            for dato in var.rbtsex:
                 dato.setChecked(False)
+                print("sex")
             for data in var.chkpago:
                 data.setChecked(False)
+                print("pago")
             var.ui.cmbProv.setCurrentIndex(0)
-            var.ui.lblValidar.setText('')
+            var.ui.lblValido.setText('')
+            var.ui.lblCodcli.setText('')
+            var.ui.spinEdad.setValue(18)
         except Exception as error:
-            print('Error: %s ' % str(error))
+            print('Error: limpiar %s ' % str(error))
             # ver que hostia falta
 
     def modifCliente(self):
@@ -205,7 +181,7 @@ class Clientes():
     def valoresSpin(self):
         try:
             var.ui.spinEdad.setValue(18)
-            var.ui.spinEdad.setMaximun(150)
-            var.ui.spinEdad.setMinimun(18)
+            #var.ui.spinEdad.(150)
+            #var.ui.spinEdad.setMinimun(18)
         except Exception as error:
             print('Error valores spin: %s ' % str(error))

@@ -1,7 +1,8 @@
 from datetime import *
-
+from  PyQt5 import QtPrintSupport
 import conexion
 from Calendar import *
+from Eliminar import Ui_Eliminar
 from VenSalir import *
 from Ventana import *
 import sys, events, var, Clients
@@ -15,6 +16,14 @@ class DialogSalir(QtWidgets.QDialog):
         var.dlgsalir.setupUi(self)
         var.dlgsalir.btnboxSalir.button(QtWidgets.QDialogButtonBox.Yes).clicked.connect(events.Eventos.Salir)
 
+class DialogEliminar(QtWidgets.QDialog):
+    def __init__(self):
+        super(DialogEliminar, self).__init__()
+        var.dlgaviso=Ui_Eliminar()
+        var.cliente=True
+        var.dlgaviso.setupUi(self)
+        var.dlgaviso.btnSi.clicked.connect(events.Eventos.Eliminar)
+        var.dlgaviso.btnNo.clicked.connect(events.Eventos.Anular)
 class DialogCalendar(QtWidgets.QDialog):
     def __init__(self):
         super(DialogCalendar,self).__init__()
@@ -26,6 +35,16 @@ class DialogCalendar(QtWidgets.QDialog):
         var.dlgcalendar.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
         var.dlgcalendar.calendarWidget.clicked.connect(Clients.Clientes.cargarFecha)
 
+class FileDialogAbrir(QtWidgets.QFileDialog):
+    def __init__(self):
+        super(FileDialogAbrir,self).__init__()
+        self.setWindowTitle('Abrir arcivo')
+        self.setModal(True)
+
+class PrintDialogAbrir(QtPrintSupport.QPrintDialog):
+    def __init__(self):
+        super(PrintDialogAbrir,self).__init__()
+
 class Main(QtWidgets.QMainWindow):
 
         def __init__(self):
@@ -36,6 +55,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.statusbar.addPermanentWidget(var.ui.lblTiempo,2)
             var.ui.lblstatus.setText('Bienvenido a 2º DAM')
             conexion.Conexion.db_connect(var.filebd)
+
             #conexion.Conexion()
             '''
             conexión con los eventos
@@ -46,11 +66,15 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btnsalir.clicked.connect(events.Eventos.Salir)
             var.dlgsalir=DialogSalir()
             var.dlgcalendar=DialogCalendar()
+            var.dlgaviso = DialogEliminar()
+            var.filedlgabrir=FileDialogAbrir()
+            var.dlgimprimir=PrintDialogAbrir()
             var.ui.lnDNI.editingFinished.connect(events.Eventos.validoDNI)
             var.ui.btnCalendar.clicked.connect(Clients.Clientes.abrirCalendar)
             var.rbtSex=(var.ui.rbtFem,var.ui.rbtMasc)
             for i in var.rbtSex:
                 i.toggled.connect(Clients.Clientes.selSexo)
+                print('rbtsex')
             var.chkPago=(var.ui.chkEfectivo,var.ui.chkTarjeta,var.ui.chkTransf)
             for i in var.chkPago:
                 i.stateChanged.connect(Clients.Clientes.selPago)
@@ -61,16 +85,21 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btnOk.clicked.connect(Clients.Clientes.limpiarCli)
             var.ui.btnModificar.clicked.connect(Clients.Clientes.modifCliente)
             conexion.Conexion.mostrarClientes(self)
-            var.ui.btnEliminar.clicked.connect(Clients.Clientes.bajaCliente)
+            var.ui.btnEliminar.clicked.connect(events.Eventos.mostrarAvisoCli)
             var.ui.btnLimpiar.clicked.connect(Clients.Clientes.limpiarCli)
             var.ui.cliTable.clicked.connect(Clients.Clientes.cargarCliente)
             var.ui.actionsalir.triggered.connect(events.Eventos.Salir)
             var.ui.toolbarSalir.triggered.connect(events.Eventos.Salir)
-            var.ui.btnLimpiar.clicked.connect(Clients.Clientes.limpiarCli)
+            #var.ui.btnLimpiar.clicked.connect(Clients.Clientes.limpiarCli)
             #var.ui.btnBuscar.clicked.connect(Clients.Clientes.buscarCli)
             fecha = date.today()
             var.ui.lblTiempo.setText(fecha.strftime('%A %d de %B del %Y'))
             Clients.Clientes.valoresSpin(self)
+            var.ui.toolbarAbrir.triggered.connect(events.Eventos.abrirDir)
+            var.ui.toolbarImprimir.triggered.connect(events.Eventos.abrirPrinter)
+            var.ui.toolbarBackup.triggered.connect(events.Eventos.Backup)
+            var.ui.toolbarBackup.triggered.connect(events.Eventos.Backup)
+            var.ui.btnBuscar.clicked.connect(events.Eventos.buscarCli)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)

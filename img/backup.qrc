@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>databackup_theapplication_dedatos_3366.png</file>
+  </qresource>
+</RCC>

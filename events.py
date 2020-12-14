@@ -1,7 +1,9 @@
 import Clients
+import conexion
 import var
 import sys
-
+from datetime import  datetime
+import zipfile,os
 
 class Eventos():
 
@@ -18,6 +20,17 @@ class Eventos():
                 event.ignore()
         except Exception as error:
             print("Error a %s:  " % str(error))
+    def Eliminar(self):
+            try:
+                if var.cliente:
+                    Clients.Clientes.bajaCliente("self")
+
+                    var.dlgaviso.hide()
+                    var.cliente=False
+                    conexion.Conexion.mostrarClientes(None)
+                    print("Eliminar")
+            except Exception as error:
+                print("Error eliminar %s:  " % str(error))
 
     '''
     eventos clientes
@@ -46,4 +59,52 @@ class Eventos():
         except Exception as error:
             print('Error: prov %s ' % str(error))
 
+    def Confirmar(self):
+        try:
+            if var.cliente:
+                Clients.Clientes.bajaCliente()
+                var.dlgaviso.hide()
+                var.cliente=False
+                conexion.Conexion.mostrarClientes(None)
+        except Exception as error:
+            print('Error: confirmar %s ' % str(error))
 
+    def mostrarAvisoCli():
+        try:
+            var.cliente=True
+            #var.dlgaviso.addWidget(var.ui.lblstatus, 1)
+            #var.dlgaviso.lblAviso.SetText('Hey')
+            var.dlgaviso.show()
+        except Exception as error:
+            print('Error mostrar aviso: % '%str(error))
+    def Anular(self):
+        try:
+            var.dlgaviso.hide()
+            print("hola")
+        except Exception as error:
+            print('Error Boton anula %s '%str(error))
+    def abrirDir(self):
+        try:
+            var.filedlgabrir.show()
+        except Exception as error:
+            print('Error abrir explorador: % ' % str(error))
+    def abrirPrinter(self):
+        try:
+            var.dlgimprimir.setWindowTitle('Imprimir')
+            var.dlgimprimir.setModal(True)
+            var.dlgimprimir.show()
+        except Exception as error:
+            print('Error abrir explorador: % ' % str(error))
+    def Backup(self):
+        try:
+            fecha=datetime.now()
+            fichzip=zipfile.ZipFile('_backup.zip','w')
+            fichzip.write(var.filebd, os.path.basename(var.filebd),zipfile.ZIP_DEFLATED)
+        except Exception as error:
+            print('Error guardar backup: % ' % str(error))
+    def buscarCli(self):
+        try:
+            dni=var.ui.lnDNI.text()
+            conexion.Conexion.buscarCli(dni)
+        except Exception as error:
+            print('Error buscar clientes: % ' % str(error))

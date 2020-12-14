@@ -30,21 +30,25 @@ class Conexion():
 
     def altaCli(cliente):
         query = QtSql.QSqlQuery()
-        query.prepare('insert into clientes (dni, apelidos, nome, fechalta, direccion, provincia, sexo, formapago)'
-                      'VALUES (:dni, :apelidos, :nome, :fechalta, :direccion, :provincia, :sexo, :formapago)')
+
+        query.prepare('insert into clientes (dni, apelidos, nome, fechalta, direccion,edad, provincia, sexo, formapago)'
+                      'VALUES (:dni, :apelidos, :nome, :fechalta, :direccion,:edad, :provincia, :sexo, :formapago)')
         query.bindValue(':dni', str(cliente[0]))
         query.bindValue(':apelidos', str(cliente[1]))
         query.bindValue(':nome', str(cliente[2]))
         query.bindValue(':fechalta', str(cliente[3]))
         query.bindValue(':direccion', str(cliente[4]))
-        query.bindValue(':provincia', str(cliente[5]))
-        query.bindValue(':sexo', str(cliente[6]))
+        query.bindValue(':edad', str(cliente[5]))
+        query.bindValue(':provincia', str(cliente[6]))
+        query.bindValue(':sexo', str(cliente[7]))
         # pagos = ' '.join(cliente[7]) si quiesesemos un texto, pero nos viene mejor meterlo como una lista
-        query.bindValue(':formapago', str(cliente[7]))
+        query.bindValue(':formapago', str(cliente[8]))
+
+
         if query.exec_():
             print("Inserción Correcta")
             Conexion.mostrarClientes()
-            var.ui.lblstatus.setText('Cliente con dni ' + cliente[0]+'')
+            var.ui.lblstatus.setText('Insercion correcta: cliente con dni ' + cliente[0]+'')
         else:
             print("Error: altacli ", query.lastError().text())
     def mostrarClientes(self):
@@ -97,26 +101,70 @@ class Conexion():
             print('error modificar cliente: ',query.lastError().text())
 
     def cargarCliente(self):
-        dni=var.ui.lnDNI.text()
-        query=QtSql.QSqlQuery()
-        print('hola')
-        query.prepare('select * from clientes where dni=:dni')
-        query.bindValue(':dni',dni)
-        if query.exec_():
-            while query.next():
-                var.ui.lblCodcli.setText(str(query.value(0)))
-                var.ui.lnCalendar.setText(str(query.value(4)))
-                var.ui.lnDir.setText(str(query.value(5)))
-                var.ui.cmbProv.setCurrentText(str(query.value(6)))
-                if str(query.value(7))=='Mujer':
-                    var.ui.rbtFem.setChecked(True)
-                    var.ui.rbtMasc.setChecked(False)
-                else:
-                    var.ui.rbtFem.setChecked(False)
-                    var.ui.rbtMasc.setChecked(True)
-                if 'Efectivo' in query.value(8):
-                    var.chkpago[0].setChecked(True)
-                if 'Tarjeta' in query.value(8):
-                    var.chkpago[1].setChecked(True)
-                if 'Transferencia' in query.value(8):
-                    var.chkpago[2].setChecked(True)
+        try:
+            dni=var.ui.lnDNI.text()
+            query=QtSql.QSqlQuery()
+
+            query.prepare('select * from clientes where dni=:dni')
+            query.bindValue(':dni',dni)
+            if query.exec_():
+                while query.next():
+                    var.ui.lblCodcli.setText(str(query.value(0)))
+                    var.ui.lnCalendar.setText(str(query.value(4)))
+                    var.ui.lnDir.setText(str(query.value(5)))
+
+                    var.ui.spinEdad.setValue(int(query.value(6)))
+                    var.ui.cmbProv.setCurrentText(str(query.value(7)))
+                    print('hola')
+
+                    if str(query.value(8))=='Mujer':
+                        var.ui.rbtFem.setChecked(True)
+                        var.ui.rbtMasc.setChecked(False)
+
+                    else:
+                        var.ui.rbtFem.setChecked(False)
+                        var.ui.rbtMasc.setChecked(True)
+                    if 'Efectivo' in query.value(9):
+                        var.chkpago[0].setChecked(True)
+                    if 'Tarjeta' in query.value(9):
+                        var.chkpago[1].setChecked(True)
+                    if 'Transferencia' in query.value(9):
+                        var.chkpago[2].setChecked(True)
+            #print(str(query.value(8)))
+        except Exception as error:
+            print('Error: cargarCli %s ' % str(error))
+    def buscarCli(dni):
+        try:
+            dni = var.ui.lnDNI.text()
+            query = QtSql.QSqlQuery()
+
+            query.prepare('select * from clientes where dni=:dni')
+            query.bindValue(':dni', dni)
+            if query.exec_():
+                while query.next():
+                    var.ui.lblCodcli.setText(str(query.value(0)))
+                    var.ui.lnApel.setText(str(query.value(2)))
+                    var.ui.lnNome.setText(str(query.value(3)))
+                    var.ui.lnCalendar.setText(str(query.value(4)))
+                    var.ui.lnDir.setText(str(query.value(5)))
+
+                    var.ui.spinEdad.setValue(int(query.value(6)))
+                    var.ui.cmbProv.setCurrentText(str(query.value(7)))
+                    print('hola')
+
+                    if str(query.value(8)) == 'Mujer':
+                        var.ui.rbtFem.setChecked(True)
+                        var.ui.rbtMasc.setChecked(False)
+
+                    else:
+                        var.ui.rbtFem.setChecked(False)
+                        var.ui.rbtMasc.setChecked(True)
+                    if 'Efectivo' in query.value(9):
+                        var.chkpago[0].setChecked(True)
+                    if 'Tarjeta' in query.value(9):
+                        var.chkpago[1].setChecked(True)
+                    if 'Transferencia' in query.value(9):
+                        var.chkpago[2].setChecked(True)
+            # print(str(query.value(8)))
+        except Exception as error:
+            print('Error: cargarCli %s ' % str(error))
