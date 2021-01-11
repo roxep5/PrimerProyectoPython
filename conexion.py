@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtSql
 
 import var
-
+import conexion
 class Conexion():
     '''try:
         HOST='localhost'
@@ -168,3 +168,69 @@ class Conexion():
             # print(str(query.value(8)))
         except Exception as error:
             print('Error: cargarCli %s ' % str(error))
+#Productos
+    def altaProd(Prod):
+        query = QtSql.QSqlQuery()
+
+        query.prepare('insert into Productos (NomeProd,PrecioUnidad)'
+                      'VALUES (:NomeProd, :PrecioUnidad)')
+        query.bindValue(':NomeProd', str(Prod[0]))
+        query.bindValue(':PrecioUnidad', str(Prod[1]))
+        if query.exec_():
+            print("Inserción Correcta")
+            var.ui.lblstatus.setText('Insercion correcta Producto:  ' + Prod[0] + '')
+        else:
+            print("Error: altaProd ", query.lastError().text())
+    def mostrarProductos(self):
+        index=0
+        query=QtSql.QSqlQuery()
+        query.prepare('select * from Productos')
+        if query.exec_():
+            while query.next():
+                id = query.value(0)
+                nombreProd = query.value(1)
+                Precio = query.value(2)
+                var.ui.tableProd.setRowCount(index + 1)
+                var.ui.tableProd.setItem(index, 0, QtWidgets.QTableWidgetItem(str(id)))
+                var.ui.tableProd.setItem(index, 1, QtWidgets.QTableWidgetItem(nombreProd))
+                var.ui.tableProd.setItem(index, 2, QtWidgets.QTableWidgetItem(Precio))
+                index += 1
+        else:
+            print("Error mostrar productos: ", query.lastError().text())
+
+    def bajaProductos(id):
+        query = QtSql.QSqlQuery()
+        query.prepare('delete from Productos where Codigo= :Codigo')
+        query.bindValue(':Codigo', id)
+        if query.exec_():
+            print('Baja Producto')
+            var.ui.lblstatus.setText('Producto con id ' + id + ' dado de baja')
+        else:
+            print("Error baja Producto: ", query.lastError().text())
+    def cargarProd(self):
+        nombre = var.ui.editNombreProd.text()
+        query = QtSql.QSqlQuery()
+
+        query.prepare('select * from Productos where NomeProd=:NomeProd')
+        query.bindValue(':NomeProd', nombre)
+        if query.exec_():
+            while query.next():
+                var.ui.editCod.setText(str(query.value(0)))
+                var.ui.editNombreProd.setText(str(query.value(1)))
+                var.ui.editPrecioProd.setText(str(query.value(2)))
+    def modificarProd(codigo, newdata):
+            print(codigo, "   ", newdata)
+            query = QtSql.QSqlQuery()
+            codigo = int(codigo)
+            query.prepare('update Productos set NomeProd=:NomeProd, PrecioUnidad=:PrecioUnidad'
+                          ' where Codigo=:Codigo')
+            query.bindValue(':Codigo', int(codigo))
+            query.bindValue(':NomeProd', str(newdata[0]))
+            query.bindValue(':PrecioUnidad', str(newdata[1]))
+            print( newdata)
+            if query.exec_():
+                print('producto modificado')
+                var.ui.lblstatus.setText('producto con id modificado' + str(codigo))
+                conexion.Conexion.mostrarProductos(None)
+            else:
+                print('error modificar producto: ', query.lastError().text())

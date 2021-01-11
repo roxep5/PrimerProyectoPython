@@ -108,3 +108,25 @@ class Eventos():
             conexion.Conexion.buscarCli(dni)
         except Exception as error:
             print('Error buscar clientes: % ' % str(error))
+
+    def MostrarVentanaAbout(self):
+        try:
+            var.dlgAbout.show()
+        except Exception as error:
+            print('Error abrir about: % ' % str(error))
+
+    def MostrarVentanaMod(self):
+        try:
+            var.dlgModificar.show()
+        except Exception as error:
+            print('Error abrir about: % ' % str(error))
+    def cerrar(self):
+        try:
+            var.dlgAbout.hide()
+        except Exception as error:
+            print('Error Boton cerrar %s '%str(error))
+    def cerrarMod(self):
+        try:
+            var.dlgModificar.hide()
+        except Exception as error:
+            print('Error Boton aceptar mod %s '%str(error))

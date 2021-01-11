@@ -1,12 +1,17 @@
 from datetime import *
 from  PyQt5 import QtPrintSupport
 import conexion
+import productos
 from Calendar import *
 from Eliminar import Ui_Eliminar
 from VenSalir import *
 from Ventana import *
 import sys, events, var, Clients
 import locale
+
+from logoempresa import Ui_About
+from modificarProd import Ui_Modificar
+
 locale.setlocale(locale.LC_ALL,'es-ES')
 
 class DialogSalir(QtWidgets.QDialog):
@@ -24,6 +29,18 @@ class DialogEliminar(QtWidgets.QDialog):
         var.dlgaviso.setupUi(self)
         var.dlgaviso.btnSi.clicked.connect(events.Eventos.Eliminar)
         var.dlgaviso.btnNo.clicked.connect(events.Eventos.Anular)
+class DialogAbout(QtWidgets.QDialog):
+    def __init__(self):
+        super(DialogAbout, self).__init__()
+        var.dlgAbout=Ui_About()
+        var.dlgAbout.setupUi(self)
+        var.dlgAbout.btnNo.clicked.connect(events.Eventos.cerrar)
+class DialogModificar(QtWidgets.QDialog):
+    def __init__(self):
+        super(DialogAbout, self).__init__()
+        var.dlgModificar=Ui_Modificar()
+        var.dlgModificar.setupUi(self)
+        var.dlgModificar.btnNo.clicked.connect(events.Eventos.cerrarMod)
 class DialogCalendar(QtWidgets.QDialog):
     def __init__(self):
         super(DialogCalendar,self).__init__()
@@ -69,6 +86,7 @@ class Main(QtWidgets.QMainWindow):
             var.dlgaviso = DialogEliminar()
             var.filedlgabrir=FileDialogAbrir()
             var.dlgimprimir=PrintDialogAbrir()
+            var.dlgAbout=DialogAbout()
             var.ui.lnDNI.editingFinished.connect(events.Eventos.validoDNI)
             var.ui.btnCalendar.clicked.connect(Clients.Clientes.abrirCalendar)
             var.rbtSex=(var.ui.rbtFem,var.ui.rbtMasc)
@@ -100,6 +118,14 @@ class Main(QtWidgets.QMainWindow):
             var.ui.toolbarBackup.triggered.connect(events.Eventos.Backup)
             var.ui.toolbarBackup.triggered.connect(events.Eventos.Backup)
             var.ui.btnBuscar.clicked.connect(events.Eventos.buscarCli)
+            #Examen
+            var.ui.btnAltaProd.clicked.connect(productos.Productos.nuevoProducto)
+            var.ui.btnBajaProd.clicked.connect(productos.Productos.bajaProducto)
+            var.ui.tableProd.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+            conexion.Conexion.mostrarProductos(self)
+            var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
+
+            var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)
