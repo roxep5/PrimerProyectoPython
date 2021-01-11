@@ -17,3 +17,4 @@ filebd = 'empresa.db'
 global DATABASE
 global dlgAbout
 global dlgModificar
+global rep
