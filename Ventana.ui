@@ -127,6 +127,9 @@
            <height>16777215</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -176,6 +179,9 @@
            <width>1000</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
          </property>
         </widget>
        </item>
@@ -231,6 +237,9 @@
            <width>900</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
          </property>
         </widget>
        </item>
@@ -517,6 +526,9 @@
            <height>16777215</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
         </widget>
        </item>
        <item>
@@ -619,7 +631,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lnCalendar"/>
+        <widget class="QLineEdit" name="lnCalendar">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnCalendar">
@@ -675,6 +691,9 @@
           <width>811</width>
           <height>321</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -812,57 +831,564 @@
      <attribute name="title">
       <string>Facturación</string>
      </attribute>
-     <widget class="QLabel" name="lblCodcli_2">
+     <widget class="QScrollArea" name="scrollArea_3">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>50</y>
-        <width>60</width>
-        <height>30</height>
+        <x>24</x>
+        <y>90</y>
+        <width>201</width>
+        <height>531</height>
        </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>60</width>
-        <height>20</height>
-       </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
-        <height>30</height>
+        <width>210</width>
+        <height>16777215</height>
        </size>
       </property>
-      <property name="layoutDirection">
-       <enum>Qt::RightToLeft</enum>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(225, 255, 253)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>199</width>
+         <height>529</height>
+        </rect>
+       </property>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>201</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Nº Factura</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Fecha</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QScrollArea" name="scrollArea_4">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>50</y>
-        <width>91</width>
-        <height>31</height>
+        <x>240</x>
+        <y>90</y>
+        <width>751</width>
+        <height>531</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <family>Times New Roman</family>
-        <pointsize>12</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-      <property name="text">
-       <string>Nº de factura</string>
+      <widget class="QWidget" name="scrollAreaWidgetContents_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>749</width>
+         <height>529</height>
+        </rect>
+       </property>
+       <widget class="QTableWidget" name="tableWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>751</width>
+          <height>531</height>
+         </rect>
+        </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>140</number>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>CodVenta</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Articulo</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cantidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Precio-Unidad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Subtotal</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>630</y>
+        <width>164</width>
+        <height>86</height>
+       </rect>
       </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="1" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="maximumSize">
+            <size>
+             <width>160</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Times New Roman</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Subtotal: </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="editCod_4">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(229, 249, 255)</string>
+           </property>
+           <property name="inputMask">
+            <string notr="true"/>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Normal</enum>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="maximumSize">
+            <size>
+             <width>160</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Times New Roman</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>TOTAL:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="editCod_6">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(229, 249, 255)</string>
+           </property>
+           <property name="inputMask">
+            <string notr="true"/>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Normal</enum>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="maximumSize">
+            <size>
+             <width>160</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Times New Roman</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>IVA</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="editCod_3">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(229, 249, 255)</string>
+           </property>
+           <property name="inputMask">
+            <string notr="true"/>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+           <property name="echoMode">
+            <enum>QLineEdit::Normal</enum>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="placeholderText">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>24</x>
+        <y>6</y>
+        <width>642</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Nº de factura</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblCodcli_2">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::RightToLeft</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Fecha de factura</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnCalendar_2">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgba(0,0,0,0)</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/calendar.qrc">
+           <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>50</width>
+           <height>30</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnFacturar">
+         <property name="text">
+          <string>Facturar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnAnular">
+         <property name="text">
+          <string>Anular</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>24</x>
+        <y>52</y>
+        <width>961</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cliente:   </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_3"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnBuscar_2">
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/buscar.qrc">
+           <normaloff>:/newPrefix/lupa.png</normaloff>:/newPrefix/lupa.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnLimpiar2_2">
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/recargar.qrc">
+           <normaloff>:/newPrefix/guardar.png</normaloff>:/newPrefix/guardar.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>25</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
@@ -932,6 +1458,9 @@
         </property>
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -1012,7 +1541,7 @@
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(225, 255, 253)</string>
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
          </property>
          <property name="inputMask">
           <string notr="true"/>
@@ -1047,7 +1576,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="editNombreProd"/>
+        <widget class="QLineEdit" name="editNombreProd">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer_5">
@@ -1081,7 +1614,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="editPrecioProd"/>
+        <widget class="QLineEdit" name="editPrecioProd">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

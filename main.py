@@ -11,6 +11,7 @@ import locale
 
 from logoempresa import Ui_About
 from modificarProd import Ui_Modificar
+from printer import Printer
 
 locale.setlocale(locale.LC_ALL,'es-ES')
 
@@ -125,6 +126,7 @@ class Main(QtWidgets.QMainWindow):
             conexion.Conexion.mostrarProductos(self)
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
             var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
+            var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
 
 
 
