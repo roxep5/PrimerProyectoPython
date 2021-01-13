@@ -124,8 +124,11 @@ class Main(QtWidgets.QMainWindow):
             var.ui.tableProd.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             conexion.Conexion.mostrarProductos(self)
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
-
             var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
+
+
+
+
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)
