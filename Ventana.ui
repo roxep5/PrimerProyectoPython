@@ -858,7 +858,7 @@
          <height>529</height>
         </rect>
        </property>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="tableNfactura">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -866,6 +866,9 @@
           <width>201</width>
           <height>531</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <column>
          <property name="text">
@@ -901,7 +904,7 @@
          <height>529</height>
         </rect>
        </property>
-       <widget class="QTableWidget" name="tableWidget_2">
+       <widget class="QTableWidget" name="tableArticulos">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -909,6 +912,9 @@
           <width>751</width>
           <height>531</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
          <number>140</number>
@@ -1139,7 +1145,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>24</x>
@@ -1208,7 +1214,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="editFactura">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
@@ -1253,7 +1262,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>24</x>
@@ -1297,7 +1306,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="editDniFactura">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -1310,10 +1319,17 @@
            <height>16777215</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="lineEdit_3"/>
+        <widget class="QLineEdit" name="editNombreF">
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnBuscar_2">
