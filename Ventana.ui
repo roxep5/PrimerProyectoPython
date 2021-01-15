@@ -41,6 +41,9 @@
       <height>761</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="currentIndex">
      <number>2</number>
     </property>
@@ -64,7 +67,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:qlineargradient(spread:pad, x1:0.42, y1:0, x2:0.449, y2:1, stop:0 rgba(245, 0, 255, 255), stop:0.642045 rgba(255, 255, 255, 255))</string>
+       <string notr="true">background-color:qlineargradient(spread:pad, x1:0.42, y1:0, x2:0.449, y2:1, stop:0 rgb(229, 249, 255), stop:0.642045 rgba(255, 255, 255, 255))</string>
       </property>
       <property name="text">
        <string>Xestion de clientes</string>
@@ -77,7 +80,7 @@
       <property name="geometry">
        <rect>
         <x>19</x>
-        <y>170</y>
+        <y>110</y>
         <width>911</width>
         <height>22</height>
        </rect>
@@ -191,7 +194,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>200</y>
+        <y>140</y>
         <width>911</width>
         <height>41</height>
        </rect>
@@ -304,8 +307,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>18</x>
-        <y>290</y>
+        <x>20</x>
+        <y>190</y>
         <width>881</width>
         <height>31</height>
        </rect>
@@ -454,7 +457,7 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>120</y>
+        <y>60</y>
         <width>911</width>
         <height>41</height>
        </rect>
@@ -478,7 +481,7 @@
           <enum>Qt::RightToLeft</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(225, 255, 253)</string>
+          <string notr="true">background-color: rgb(229, 249, 255)</string>
          </property>
          <property name="text">
           <string/>
@@ -666,9 +669,9 @@
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>360</y>
+        <y>220</y>
         <width>801</width>
-        <height>321</height>
+        <height>441</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -680,7 +683,7 @@
          <x>0</x>
          <y>0</y>
          <width>799</width>
-         <height>319</height>
+         <height>439</height>
         </rect>
        </property>
        <widget class="QTableWidget" name="cliTable">
@@ -688,8 +691,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>811</width>
-          <height>321</height>
+          <width>801</width>
+          <height>441</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -699,7 +702,7 @@
          <enum>QFrame::NoFrame</enum>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>250</number>
+         <number>258</number>
         </attribute>
         <column>
          <property name="text">
@@ -753,7 +756,7 @@
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>690</y>
+        <y>670</y>
         <width>801</width>
         <height>51</height>
        </rect>
@@ -834,10 +837,10 @@
      <widget class="QScrollArea" name="scrollArea_3">
       <property name="geometry">
        <rect>
-        <x>24</x>
-        <y>90</y>
+        <x>20</x>
+        <y>190</y>
         <width>201</width>
-        <height>531</height>
+        <height>431</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -855,7 +858,7 @@
          <x>0</x>
          <y>0</y>
          <width>199</width>
-         <height>529</height>
+         <height>429</height>
         </rect>
        </property>
        <widget class="QTableWidget" name="tableNfactura">
@@ -864,12 +867,15 @@
           <x>0</x>
           <y>0</y>
           <width>201</width>
-          <height>531</height>
+          <height>431</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>99</number>
+        </attribute>
         <column>
          <property name="text">
           <string>Nº Factura</string>
@@ -887,9 +893,9 @@
       <property name="geometry">
        <rect>
         <x>240</x>
-        <y>90</y>
+        <y>190</y>
         <width>751</width>
-        <height>531</height>
+        <height>431</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -901,7 +907,7 @@
          <x>0</x>
          <y>0</y>
          <width>749</width>
-         <height>529</height>
+         <height>429</height>
         </rect>
        </property>
        <widget class="QTableWidget" name="tableArticulos">
@@ -910,14 +916,14 @@
           <x>0</x>
           <y>0</y>
           <width>751</width>
-          <height>531</height>
+          <height>431</height>
          </rect>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>140</number>
+         <number>149</number>
         </attribute>
         <column>
          <property name="text">
@@ -1148,8 +1154,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>24</x>
-        <y>6</y>
+        <x>20</x>
+        <y>80</y>
         <width>642</width>
         <height>40</height>
        </rect>
@@ -1265,8 +1271,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>24</x>
-        <y>52</y>
+        <x>20</x>
+        <y>140</y>
         <width>961</width>
         <height>32</height>
        </rect>
@@ -1406,6 +1412,31 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="lblxestion_3">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>20</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Times New Roman</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:qlineargradient(spread:pad, x1:0.42, y1:0, x2:0.449, y2:1, stop:0 rgb(229, 249, 255), stop:0.642045 rgba(255, 255, 255, 255))</string>
+      </property>
+      <property name="text">
+       <string>Xestion de facturas</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -1427,7 +1458,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color:qlineargradient(spread:pad, x1:0.42, y1:0, x2:0.449, y2:1, stop:0 rgba(245, 0, 255, 255), stop:0.642045 rgba(255, 255, 255, 255))</string>
+       <string notr="true">background-color:qlineargradient(spread:pad, x1:0.42, y1:0, x2:0.449, y2:1, stop:0 rgb(229, 249, 255), stop:0.642045 rgba(255, 255, 255, 255))</string>
       </property>
       <property name="text">
        <string>Xestion de Productos</string>
@@ -1482,7 +1513,7 @@
          <enum>QFrame::NoFrame</enum>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>295</number>
+         <number>292</number>
         </attribute>
         <column>
          <property name="text">
