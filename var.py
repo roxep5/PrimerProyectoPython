@@ -18,3 +18,4 @@ global DATABASE
 global dlgAbout
 global dlgModificar
 global rep
+global cmbVenta

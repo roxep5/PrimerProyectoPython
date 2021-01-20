@@ -2,6 +2,7 @@ from datetime import *
 from  PyQt5 import QtPrintSupport
 import conexion
 import productos
+import ventas
 from Calendar import *
 from Eliminar import Ui_Eliminar
 from VenSalir import *
@@ -9,6 +10,7 @@ from Ventana import *
 import sys, events, var, Clients
 import locale
 
+from ventas import Ventas
 from logoempresa import Ui_About
 from modificarProd import Ui_Modificar
 from printer import Printer
@@ -127,6 +129,8 @@ class Main(QtWidgets.QMainWindow):
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
             var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
             var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
+            #Facturas
+            ventas.Ventas.prepararTabVentas(0)
 
 
 

@@ -112,7 +112,8 @@ class Conexion():
                     var.ui.lblCodcli.setText(str(query.value(0)))
                     var.ui.lnCalendar.setText(str(query.value(4)))
                     var.ui.lnDir.setText(str(query.value(5)))
-
+                    var.ui.editDniFactura.setText(str(query.value(1)))
+                    var.ui.editApelido.setText(str(query.value(2)))
                     var.ui.spinEdad.setValue(int(query.value(6)))
                     var.ui.cmbProv.setCurrentText(str(query.value(7)))
                     print('hola')
@@ -234,3 +235,16 @@ class Conexion():
                 conexion.Conexion.mostrarProductos(None)
             else:
                 print('error modificar producto: ', query.lastError().text())
+
+    def cargarCmbVenta(cmbventa):
+        try:
+            var.cmbVenta.clear()
+            query=QtSql.QSqlQuery()
+            var.cmbVenta.addItem('')
+            query.prepare('select Codigo, NomeProd from productos order by NomeProd')
+            if query.exec_():
+                while query.next():
+                    print("hola")
+                    var.cmbVenta.addItem(str(query.value(1)))
+        except Exception as error:
+            print("error en cargar cmbventa %s "%str(error))
