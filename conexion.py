@@ -47,7 +47,7 @@ class Conexion():
 
         if query.exec_():
             print("Inserción Correcta")
-            Conexion.mostrarClientes()
+            Conexion.mostrarClientes(None)
             var.ui.lblstatus.setText('Insercion correcta: cliente con dni ' + cliente[0]+'')
         else:
             print("Error: altacli ", query.lastError().text())
@@ -112,24 +112,28 @@ class Conexion():
                     var.ui.lblCodcli.setText(str(query.value(0)))
                     var.ui.lnCalendar.setText(str(query.value(4)))
                     var.ui.lnDir.setText(str(query.value(5)))
+                    var.ui.lnDNI.setText(str(query.value(1)))
                     var.ui.editDniFactura.setText(str(query.value(1)))
+                    var.ui.lnApel.setText(str(query.value(2)))
                     var.ui.editApelido.setText(str(query.value(2)))
-                    var.ui.spinEdad.setValue(int(query.value(6)))
-                    var.ui.cmbProv.setCurrentText(str(query.value(7)))
+                    var.ui.lnNome.setText(query.value(3))
+                    var.ui.spinEdad.setValue(int(query.value(9)))
                     print('hola')
+                    var.ui.cmbProv.setCurrentText(str(query.value(6)))
 
-                    if str(query.value(8))=='Mujer':
+
+                    if str(query.value(7))=='Mujer':
                         var.ui.rbtFem.setChecked(True)
                         var.ui.rbtMasc.setChecked(False)
 
                     else:
                         var.ui.rbtFem.setChecked(False)
                         var.ui.rbtMasc.setChecked(True)
-                    if 'Efectivo' in query.value(9):
+                    if 'Efectivo' in query.value(8):
                         var.chkpago[0].setChecked(True)
-                    if 'Tarjeta' in query.value(9):
+                    if 'Tarjeta' in query.value(8):
                         var.chkpago[1].setChecked(True)
-                    if 'Transferencia' in query.value(9):
+                    if 'Transferencia' in query.value(8):
                         var.chkpago[2].setChecked(True)
             #print(str(query.value(8)))
         except Exception as error:
@@ -144,27 +148,29 @@ class Conexion():
             if query.exec_():
                 while query.next():
                     var.ui.lblCodcli.setText(str(query.value(0)))
-                    var.ui.lnApel.setText(str(query.value(2)))
-                    var.ui.lnNome.setText(str(query.value(3)))
                     var.ui.lnCalendar.setText(str(query.value(4)))
                     var.ui.lnDir.setText(str(query.value(5)))
-
-                    var.ui.spinEdad.setValue(int(query.value(6)))
-                    var.ui.cmbProv.setCurrentText(str(query.value(7)))
+                    var.ui.lnDNI.setText(str(query.value(1)))
+                    var.ui.editDniFactura.setText(str(query.value(1)))
+                    var.ui.lnApel.setText(str(query.value(2)))
+                    var.ui.editApelido.setText(str(query.value(2)))
+                    var.ui.lnNome.setText(query.value(3))
+                    var.ui.spinEdad.setValue(int(query.value(9)))
                     print('hola')
+                    var.ui.cmbProv.setCurrentText(str(query.value(6)))
 
-                    if str(query.value(8)) == 'Mujer':
+                    if str(query.value(7)) == 'Mujer':
                         var.ui.rbtFem.setChecked(True)
                         var.ui.rbtMasc.setChecked(False)
 
                     else:
                         var.ui.rbtFem.setChecked(False)
                         var.ui.rbtMasc.setChecked(True)
-                    if 'Efectivo' in query.value(9):
+                    if 'Efectivo' in query.value(8):
                         var.chkpago[0].setChecked(True)
-                    if 'Tarjeta' in query.value(9):
+                    if 'Tarjeta' in query.value(8):
                         var.chkpago[1].setChecked(True)
-                    if 'Transferencia' in query.value(9):
+                    if 'Transferencia' in query.value(8):
                         var.chkpago[2].setChecked(True)
             # print(str(query.value(8)))
         except Exception as error:
@@ -173,10 +179,11 @@ class Conexion():
     def altaProd(Prod):
         query = QtSql.QSqlQuery()
 
-        query.prepare('insert into Productos (NomeProd,PrecioUnidad)'
-                      'VALUES (:NomeProd, :PrecioUnidad)')
+        query.prepare('insert into Productos (NomeProd,PrecioUnidad,Stock)'
+                      'VALUES (:NomeProd, :PrecioUnidad, :Stock)')
         query.bindValue(':NomeProd', str(Prod[0]))
-        query.bindValue(':PrecioUnidad', str(Prod[1]))
+        query.bindValue(':PrecioUnidad', round(float(Prod[1]),2))
+        query.bindValue(':Stock', int(Prod[2]))
         if query.exec_():
             print("Inserción Correcta")
             var.ui.lblstatus.setText('Insercion correcta Producto:  ' + Prod[0] + '')
@@ -185,7 +192,7 @@ class Conexion():
     def mostrarProductos(self):
         index=0
         query=QtSql.QSqlQuery()
-        query.prepare('select * from Productos')
+        query.prepare('select * from Productos order by NomeProd')
         if query.exec_():
             while query.next():
                 id = query.value(0)
@@ -194,7 +201,7 @@ class Conexion():
                 var.ui.tableProd.setRowCount(index + 1)
                 var.ui.tableProd.setItem(index, 0, QtWidgets.QTableWidgetItem(str(id)))
                 var.ui.tableProd.setItem(index, 1, QtWidgets.QTableWidgetItem(nombreProd))
-                var.ui.tableProd.setItem(index, 2, QtWidgets.QTableWidgetItem(Precio))
+                var.ui.tableProd.setItem(index, 2, QtWidgets.QTableWidgetItem(str(Precio)))
                 index += 1
         else:
             print("Error mostrar productos: ", query.lastError().text())
@@ -208,26 +215,28 @@ class Conexion():
             var.ui.lblstatus.setText('Producto con id ' + id + ' dado de baja')
         else:
             print("Error baja Producto: ", query.lastError().text())
-    def cargarProd(self):
-        nombre = var.ui.editNombreProd.text()
+    def cargarProd(cod):
         query = QtSql.QSqlQuery()
 
-        query.prepare('select * from Productos where NomeProd=:NomeProd')
-        query.bindValue(':NomeProd', nombre)
+        query.prepare('select NomeProd, PrecioUnidad, Stock from Productos where codigo=:codigo')
+        query.bindValue(':codigo', cod)
+        print(cod)
         if query.exec_():
             while query.next():
-                var.ui.editCod.setText(str(query.value(0)))
-                var.ui.editNombreProd.setText(str(query.value(1)))
-                var.ui.editPrecioProd.setText(str(query.value(2)))
+                var.ui.editCod.setText(str(cod))
+                var.ui.editNombreProd.setText(str(query.value(0)))
+                var.ui.editPrecioProd.setText(str(query.value(1)))
+                var.ui.editStock.setText(str(query.value(2)))
     def modificarProd(codigo, newdata):
             print(codigo, "   ", newdata)
             query = QtSql.QSqlQuery()
             codigo = int(codigo)
-            query.prepare('update Productos set NomeProd=:NomeProd, PrecioUnidad=:PrecioUnidad'
+            query.prepare('update Productos set NomeProd=:NomeProd, PrecioUnidad=:PrecioUnidad,Stock=:Stock'
                           ' where Codigo=:Codigo')
             query.bindValue(':Codigo', int(codigo))
             query.bindValue(':NomeProd', str(newdata[0]))
-            query.bindValue(':PrecioUnidad', str(newdata[1]))
+            query.bindValue(':PrecioUnidad', round(float(newdata[1])))
+            query.bindValue(':Stock', int(newdata[2]))
             print( newdata)
             if query.exec_():
                 print('producto modificado')

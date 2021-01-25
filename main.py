@@ -55,6 +55,17 @@ class DialogCalendar(QtWidgets.QDialog):
         var.dlgcalendar.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
         var.dlgcalendar.calendarWidget.clicked.connect(Clients.Clientes.cargarFecha)
 
+class DialogCalendarFactura(QtWidgets.QDialog):
+    def __init__(self):
+        super(DialogCalendarFactura,self).__init__()
+        var.dlgcalendar=Ui_Ui_dlgCalendar()
+        var.dlgcalendar.setupUi(self)
+        diaactual=datetime.now().day
+        mesactual=datetime.now().month
+        anoactual=datetime.now().year
+        var.dlgcalendar.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
+        var.dlgcalendar.calendarWidget.clicked.connect(Clients.Clientes.cargarFecha)
+
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
         super(FileDialogAbrir,self).__init__()
@@ -122,8 +133,10 @@ class Main(QtWidgets.QMainWindow):
             var.ui.toolbarBackup.triggered.connect(events.Eventos.Backup)
             var.ui.btnBuscar.clicked.connect(events.Eventos.buscarCli)
             #Examen
+
             var.ui.btnAltaProd.clicked.connect(productos.Productos.nuevoProducto)
             var.ui.btnBajaProd.clicked.connect(productos.Productos.bajaProducto)
+            var.ui.btnModificarProd.clicked.connect(productos.Productos.modificarProd)
             var.ui.tableProd.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             conexion.Conexion.mostrarProductos(self)
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
@@ -131,6 +144,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
             #Facturas
             ventas.Ventas.prepararTabVentas(0)
+            var.ui.btnCalendarFactura.clicked.connect(Clients.Clientes.abrirCalendar)
 
 
 
