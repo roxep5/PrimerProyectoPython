@@ -257,3 +257,27 @@ class Conexion():
                     var.cmbVenta.addItem(str(query.value(1)))
         except Exception as error:
             print("error en cargar cmbventa %s "%str(error))
+
+
+    def altaFact(dni, fecha, apel):
+        try:
+            query=QtSql.QSqlQuery()
+            query.prepare('insert into facturas(dni, fecha, apellidos) VALUES (:dni, :fecha, :apellidos)')
+            query.bindValue(':dni',str(dni))
+            query.bindValue(':fecha',str(fecha))
+            query.bindValue(':apellidos',str(apel))
+            if query.exec_():
+                var.ui.lblstatus.setText('Factura creada')
+            else:
+                print("Error alta factura: ", query.lastError().text())
+            query1=QtSql.QSqlQuery()
+            query1.prepare('select max(codfactura) from facturas')
+            if query1.exec_():
+                while query1.next():
+                    var.ui.lblCodFact.setText(str(query1.value(0)))
+        except Exception as error:
+            print("error en altafact %s "%str(error))
+
+
+
+

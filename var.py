@@ -2,6 +2,7 @@ global ui
 # algo
 global dlgsalir
 global dlgcalendar
+global dlgcalendarF
 global sex
 global rbtsex
 global chkpago

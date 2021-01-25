@@ -1177,7 +1177,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="lblCodcli_2">
+        <widget class="QLabel" name="lblCodFact">
          <property name="minimumSize">
           <size>
            <width>60</width>
@@ -1220,7 +1220,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="editFactura">
+        <widget class="QLineEdit" name="editFechaFactura">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(229, 249, 255)</string>
          </property>

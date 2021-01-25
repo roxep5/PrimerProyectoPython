@@ -58,13 +58,13 @@ class DialogCalendar(QtWidgets.QDialog):
 class DialogCalendarFactura(QtWidgets.QDialog):
     def __init__(self):
         super(DialogCalendarFactura,self).__init__()
-        var.dlgcalendar=Ui_Ui_dlgCalendar()
-        var.dlgcalendar.setupUi(self)
+        var.dlgcalendarF=Ui_Ui_dlgCalendar()
+        var.dlgcalendarF.setupUi(self)
         diaactual=datetime.now().day
         mesactual=datetime.now().month
         anoactual=datetime.now().year
-        var.dlgcalendar.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
-        var.dlgcalendar.calendarWidget.clicked.connect(Clients.Clientes.cargarFecha)
+        var.dlgcalendarF.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
+        var.dlgcalendarF.calendarWidget.clicked.connect(ventas.Ventas.cargarFecha())
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
@@ -97,6 +97,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btnsalir.clicked.connect(events.Eventos.Salir)
             var.dlgsalir=DialogSalir()
             var.dlgcalendar=DialogCalendar()
+            var.dlgcalendarF=DialogCalendarFactura()
             var.dlgaviso = DialogEliminar()
             var.filedlgabrir=FileDialogAbrir()
             var.dlgimprimir=PrintDialogAbrir()
