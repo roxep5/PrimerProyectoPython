@@ -42,7 +42,7 @@ class Ventas:
         try:
             data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.editFechaFactura.setText(str(data))
-            var.dlgcalendar.hide()
+            var.dlgcalendarF.hide()
         except Exception as error:
             print('Error al cargar fecha: %s ' % str(error))
     def abrirCalendar(self):

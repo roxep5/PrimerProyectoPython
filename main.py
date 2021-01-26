@@ -64,7 +64,7 @@ class DialogCalendarFactura(QtWidgets.QDialog):
         mesactual=datetime.now().month
         anoactual=datetime.now().year
         var.dlgcalendarF.calendarWidget.setSelectedDate((QtCore.QDate(anoactual,mesactual,diaactual)))
-        var.dlgcalendarF.calendarWidget.clicked.connect(ventas.Ventas.cargarFecha())
+        var.dlgcalendarF.calendarWidget.clicked.connect(ventas.Ventas.cargarFecha)
 
 class FileDialogAbrir(QtWidgets.QFileDialog):
     def __init__(self):
@@ -145,7 +145,8 @@ class Main(QtWidgets.QMainWindow):
             var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
             #Facturas
             ventas.Ventas.prepararTabVentas(0)
-            var.ui.btnCalendarFactura.clicked.connect(Clients.Clientes.abrirCalendar)
+            var.ui.btnCalendarFactura.clicked.connect(ventas.Ventas.abrirCalendar)
+            var.ui.btnFacturar.clicked.connect(ventas.Ventas.altaFactura)
 
 
 

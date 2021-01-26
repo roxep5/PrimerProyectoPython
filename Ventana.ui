@@ -652,7 +652,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="img/calendar.qrc">
+          <iconset>
            <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
          </property>
          <property name="iconSize">
@@ -1241,7 +1241,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="img/calendar.qrc">
+          <iconset>
            <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
          </property>
          <property name="iconSize">
@@ -1272,9 +1272,9 @@
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>140</y>
+        <y>131</y>
         <width>961</width>
-        <height>32</height>
+        <height>41</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_11">
@@ -1397,16 +1397,60 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnNuevaVenta">
+         <property name="minimumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/calendar.qrc">
+           <normaloff>:/newPrefix/emblemdefault_93502.png</normaloff>:/newPrefix/emblemdefault_93502.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btneliminarVenta">
+         <property name="minimumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
-          <string>PushButton</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/cancelarventa.qrc">
+           <normaloff>:/newPrefix/1486395882-close_80604.png</normaloff>:/newPrefix/1486395882-close_80604.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>30</width>
+           <height>30</height>
+          </size>
          </property>
         </widget>
        </item>
@@ -1988,6 +2032,8 @@
  </widget>
  <resources>
   <include location="img/calendar.qrc"/>
+  <include location="img/cancelarventa.qrc"/>
+  <include location="img/okFact.qrc"/>
   <include location="img/backup.qrc"/>
   <include location="img/imprimir.qrc"/>
   <include location="img/abrircarpeta.qrc"/>

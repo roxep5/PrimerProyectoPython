@@ -1,5 +1,5 @@
 <RCC>
   <qresource prefix="newPrefix">
-    <file>emblemdefault_93502.png</file>
+    <file>aceptar.png</file>
   </qresource>
 </RCC>
