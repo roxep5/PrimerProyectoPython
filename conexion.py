@@ -320,5 +320,15 @@ class Conexion():
         else:
             print("Error mostrar facturas: ", query.lastError().text())
             return None
-
+    def cargarComboVenta(cmbVenta):
+        var.cmbVenta.clear()
+        query=QtSql.QSqlQuery()
+        var.cmbVenta.addItem('')
+        query.prepare('select codigo, nomeprod from productos order by nomeProd ')
+        if query.exec_():
+            while query.next():
+                var.cmbVenta.addItem(str(query.value(1)))
+        else:
+            print("Error cargar combo venta: ",query.lastError().text())
+    #def listadoVentasfac(codfact):
 
