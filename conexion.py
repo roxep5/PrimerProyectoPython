@@ -278,6 +278,47 @@ class Conexion():
         except Exception as error:
             print("error en altafact %s "%str(error))
 
+    def mostrarFacturas(self):
+        index=0
+        query=QtSql.QSqlQuery()
+        query.prepare('select Codfactura,Dni, fecha from facturas')
+        if query.exec_():
+            while query.next():
+                codigo=query.value(0)
+                DNI=query.value(1)
+                fecha=query.value(2)
+                var.ui.tableNfactura.setRowCount(index+1)
+                var.ui.tableNfactura.setItem(index,0,QtWidgets.QTableWidgetItem(str(codigo)))
+                var.ui.tableNfactura.setItem(index,1,QtWidgets.QTableWidgetItem(str(DNI)))
+                var.ui.tableNfactura.setItem(index,2,QtWidgets.QTableWidgetItem(str(fecha)))
+                index+=1
+        else:
+            print("Error mostrar facturas: ",query.lastError().text())
 
+    def cargarFactura(cod):
+            query = QtSql.QSqlQuery()
+            query.prepare('select fecha,dni, apellidos from Facturas where CodFactura=:codfactura')
+            query.bindValue(':codfactura', cod)
+            print(cod)
+            if query.exec_():
+                while query.next():
+                    var.ui.lblCodFact.setText(str(cod))
+                    var.ui.editFechaFactura.setText(str(query.value(0)))
+                    var.ui.editDniFactura.setText(str(query.value(1)))
+                    var.ui.editApelido.setText(str(query.value(2)))
+            else:
+                print("Error mostrar facturas: ", query.lastError().text())
+    def obtenetCodPrec(articulo):
+        dato=[]
+        query=QtSql.QSqlQuery()
+        query.prepare('select codigo, precioUnidad from productos where NombreProd =:articulo')
+        query.bindValue(':articulo',str(articulo))
+        if query.exec_():
+            while query.next():
+                dato=[str(query.value(0)),str(query.value(1))]
+            return dato
+        else:
+            print("Error mostrar facturas: ", query.lastError().text())
+            return None
 
 

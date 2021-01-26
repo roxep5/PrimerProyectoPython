@@ -147,7 +147,10 @@ class Main(QtWidgets.QMainWindow):
             ventas.Ventas.prepararTabVentas(0)
             var.ui.btnCalendarFactura.clicked.connect(ventas.Ventas.abrirCalendar)
             var.ui.btnFacturar.clicked.connect(ventas.Ventas.altaFactura)
-
+            conexion.Conexion.mostrarFacturas(self)
+            var.ui.tableNfactura.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+            var.ui.tableNfactura.clicked.connect(ventas.Ventas.cargarFacturas)
+            #var.ui.tableNfactura.clicked.connect(Clients.Clientes.cargarCliente)
 
 
 

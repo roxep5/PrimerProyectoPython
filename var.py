@@ -20,3 +20,7 @@ global dlgAbout
 global dlgModificar
 global rep
 global cmbVenta
+global subfac
+global iva
+global fac
+global venta

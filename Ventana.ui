@@ -652,7 +652,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="img/calendar.qrc">
            <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
          </property>
          <property name="iconSize">
@@ -839,14 +839,14 @@
        <rect>
         <x>20</x>
         <y>190</y>
-        <width>201</width>
+        <width>351</width>
         <height>431</height>
        </rect>
       </property>
       <property name="maximumSize">
        <size>
-        <width>210</width>
-        <height>16777215</height>
+        <width>1000</width>
+        <height>1000</height>
        </size>
       </property>
       <property name="widgetResizable">
@@ -857,7 +857,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>199</width>
+         <width>349</width>
          <height>429</height>
         </rect>
        </property>
@@ -866,19 +866,30 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>201</width>
+          <width>351</width>
           <height>431</height>
          </rect>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>1000</height>
+         </size>
         </property>
         <property name="styleSheet">
          <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>99</number>
+         <number>110</number>
         </attribute>
         <column>
          <property name="text">
           <string>Nº Factura</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>DNI</string>
          </property>
         </column>
         <column>
@@ -892,9 +903,9 @@
      <widget class="QScrollArea" name="scrollArea_4">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>380</x>
         <y>190</y>
-        <width>751</width>
+        <width>611</width>
         <height>431</height>
        </rect>
       </property>
@@ -906,7 +917,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>749</width>
+         <width>609</width>
          <height>429</height>
         </rect>
        </property>
@@ -923,7 +934,7 @@
          <string notr="true">background-color: rgb(229, 249, 255)</string>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>149</number>
+         <number>120</number>
         </attribute>
         <column>
          <property name="text">
@@ -990,7 +1001,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="editCod_4">
+          <widget class="QLineEdit" name="lblSubtotal">
            <property name="minimumSize">
             <size>
              <width>60</width>
@@ -1114,7 +1125,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="editCod_3">
+          <widget class="QLineEdit" name="lblIVA">
            <property name="minimumSize">
             <size>
              <width>60</width>
@@ -1241,7 +1252,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset>
+          <iconset resource="img/calendar.qrc">
            <normaloff>:/newPrefix/calendario.png</normaloff>:/newPrefix/calendario.png</iconset>
          </property>
          <property name="iconSize">
@@ -1414,7 +1425,7 @@
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="img/calendar.qrc">
+          <iconset resource="img/aceptar.qrc">
            <normaloff>:/newPrefix/emblemdefault_93502.png</normaloff>:/newPrefix/emblemdefault_93502.png</iconset>
          </property>
          <property name="iconSize">
@@ -2032,6 +2043,7 @@
  </widget>
  <resources>
   <include location="img/calendar.qrc"/>
+  <include location="img/aceptar.qrc"/>
   <include location="img/cancelarventa.qrc"/>
   <include location="img/okFact.qrc"/>
   <include location="img/backup.qrc"/>

@@ -50,3 +50,50 @@ class Ventas:
             var.dlgcalendarF.show()
         except Exception as error:
             print('Error: %s ' % str(error))
+    def cargarFacturas(self):
+        try:
+            var.subfac=0.00
+            var.fac=0.00
+            var.iva=0.00
+            fila=var.ui.tableNfactura.selectedItems()
+            if fila:
+                fila=[dato.text() for dato in fila]
+            conexion.Conexion.cargarFactura(fila[0])
+        except Exception as error:
+            print('Error al cargar Factura: %s ' % str(error))
+    def procesoVenta(self):
+        try:
+            var.subfac=0.00
+            var.venta=[]
+            codfact=var.ui.lblCodFact.text()
+            var.venta.append(int(codfact))
+            articulo=var.cmbVenta.currentText()
+            dato=conexion.Conexion.obtenerCodPrec(articulo)
+            var.venta.append(int(dato[0]))
+            var.venta.append(articulo)
+            row=var.ui.tableArticulos.currentRow()
+            cantidad=var.ui.tableArticulos.item(row,2).text()
+            cantidad=cantidad.replace(',','.')
+            var.venta.append(int(cantidad))
+            #precio=dato[1].replace(',','.')
+            #var.venta.append(round(float(precio),2))
+            #subtotal=round(float(cantidad)*float(dato[1]),2)
+            #var.venta.append(subtotal)
+            var.venta.append(row)
+
+            if codfact!='' and articulo!='' and cantidad!='':
+                conexion.conexion.altaVenta()
+                #var.subfac=round(float(subtotal)+float(var.subfac),2)
+                var.ui.lblSubtotal.setText(str(var.subfac))
+                var.iva=round(float(var.subfac)*21,2)
+                var.ui.lblIVA.setText(str(var.iva))
+                var.fac=round(float(var.iva)+float(var.subfac),2)
+                var.ui.lblTotal.setText(str(var.fac))
+                #Ventas.mostrarVentasFac()
+        except Exception as error:
+            print('Error al cargar Factura: %s ' % str(error))
+
+
+
+
+
