@@ -151,7 +151,9 @@ class Main(QtWidgets.QMainWindow):
             var.ui.tableNfactura.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             var.ui.tableNfactura.clicked.connect(ventas.Ventas.cargarFacturas)
             #var.ui.tableNfactura.clicked.connect(Clients.Clientes.cargarCliente)
-
+            var.ui.btnNuevaVenta.clicked.connect(ventas.Ventas.procesoVenta)
+            var.ui.tableNfactura.clicked.connect(ventas.Ventas.mostrarVentas)
+            var.ui.tableNfactura.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
 
 
         def closeEvent(self,event):

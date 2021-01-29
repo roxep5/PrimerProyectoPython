@@ -68,7 +68,7 @@ class Ventas:
             codfact=var.ui.lblCodFact.text()
             var.venta.append(int(codfact))
             articulo=var.cmbVenta.currentText()
-            dato=conexion.Conexion.obtenerCodPrec(articulo)
+            dato=conexion.Conexion.obtenetCodPrec(articulo)
             var.venta.append(int(dato[0]))
             var.venta.append(articulo)
             row=var.ui.tableArticulos.currentRow()
@@ -81,7 +81,7 @@ class Ventas:
             var.venta.append(subtotal)
             var.venta.append(row)
             if codfact!='' and articulo!='' and cantidad!='':
-                conexion.conexion.altaVenta()
+                conexion.Conexion.altaVenta(self)
                 var.subfac=round(float(subtotal)+float(var.subfac),2)
                 var.ui.lblSubtotal.setText(str(var.subfac))
                 var.iva=round(float(var.subfac)*21,2)
@@ -89,14 +89,16 @@ class Ventas:
                 var.fac=round(float(var.iva)+float(var.subfac),2)
                 var.ui.lblTotal.setText(str(var.fac))
                 #Ventas.mostrarVentasFac()
+            else:
+                print('Error ')
         except Exception as error:
-            print('Error al cargar Factura: %s ' % str(error))
+            print('Error al proceso Venta: %s ' % str(error))
     def mostrarVentas(self):
         try:
             var.cmbVenta=QtWidgets.QComboBox()
             conexion.Conexion.cargarComboVenta(var.cmbVenta)
             codfac=var.ui.lblCodFact.text()
-            #conexion.Conexion.listadoVentasfac(codfac)
+            conexion.Conexion.listadoVentasFact(codfac)
         except Exception as error:
             print('Error en proceso mostrar ventas por factura: %s'%str(error))
 

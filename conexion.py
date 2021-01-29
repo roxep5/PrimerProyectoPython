@@ -2,6 +2,9 @@ from PyQt5 import QtWidgets, QtSql
 
 import var
 import conexion
+import ventas
+
+
 class Conexion():
     '''try:
         HOST='localhost'
@@ -307,18 +310,18 @@ class Conexion():
                     var.ui.editDniFactura.setText(str(query.value(1)))
                     var.ui.editApelido.setText(str(query.value(2)))
             else:
-                print("Error mostrar facturas: ", query.lastError().text())
+                print("Error cargar facturas: ", query.lastError().text())
     def obtenetCodPrec(articulo):
         dato=[]
         query=QtSql.QSqlQuery()
-        query.prepare('select codigo, precioUnidad from productos where NombreProd =:articulo')
+        query.prepare('select codigo, precioUnidad from productos where NomeProd =:articulo')
         query.bindValue(':articulo',str(articulo))
         if query.exec_():
             while query.next():
                 dato=[str(query.value(0)),str(query.value(1))]
             return dato
         else:
-            print("Error mostrar facturas: ", query.lastError().text())
+            print("Error obtener cod precio: ", query.lastError().text())
             return None
     def cargarComboVenta(cmbVenta):
         var.cmbVenta.clear()
@@ -332,3 +335,69 @@ class Conexion():
             print("Error cargar combo venta: ",query.lastError().text())
     #def listadoVentasfac(codfact):
 
+    def altaVenta(self):
+        query=QtSql.QSqlQuery()
+        query.prepare('insert into ventas (codfact, codart, cantidad,precio) VALUES (:codfact,:codart,:cantidad, :precio)')
+        query.bindValue(':codfact',int(var.venta[0]))
+        query.bindValue(':codart',int(var.venta[1]))
+        query.bindValue(':cantidad',int(var.venta[3]))
+        query.bindValue(':precio',int(var.venta[4]))
+        row=var.ui.tableArticulos.currentRow()
+        if query.exec_():
+            var.ui.lblstatus.setText('Venta realizada')
+            var.ui.tableArticulos.setItem(row,1,QtWidgets.QTableWidgetItem(str(var.venta[2])))
+            var.ui.tableArticulos.setItem(row,2,QtWidgets.QTableWidgetItem(str(var.venta[3])))
+            var.ui.tableArticulos.setItem(row,3,QtWidgets.QTableWidgetItem(str(var.venta[4])))
+            var.ui.tableArticulos.setItem(row,4,QtWidgets.QTableWidgetItem(str(var.venta[5])))
+            row = row+1
+            var.ui.tableArticulos.insertRow(row)
+            var.ui.tableArticulos.setCellWidget(row,1,var.cmbVenta)
+            var.ui.tableArticulos.scrollToBottom()
+            Conexion.cargarComboVenta(var.cmbVenta)
+        else:
+            print("Error alta venta: ", query.lastError().text())
+
+    def listadoVentasFact(codfact):
+
+        try:
+            var.ui.tableArticulos.clearContents()
+            var.subfac=0.00
+            subtotal=0.00
+            query=QtSql.QSqlQuery()
+            query1=QtSql.QSqlQuery()
+            query.prepare('select clientes, codart,cantidad from ventas where codfact=:codfact')
+            query.bindValue(':codfact',int(codfact))
+            if query.exec_():
+                index=0
+                while query.next():
+                    codventa=query.value(0)
+                    codartventa=query.value(1)
+                    cantidad=query.value(2)
+                    var.ui.tableArticulos.setRowCount(index+1)
+                    var.ui.tableArticulos.setItem(index,0,QtWidgets.QTableWidgetItem(str(codventa)))
+                    query1.prepare('select nomeprod, precioUnidad from productos where codigo=:codartventa')
+                    query1.bindValue(':codartventa',int(codartventa))
+                    if query1.exec_():
+                        while query1.next():
+                            articulo=query1.value(0)
+                            precio=query1.value(1)
+                            var.ui.tableArticulos.setItem(index,1,QtWidgets.QTableWidgetItem(str(articulo)))
+                            var.ui.tableArticulos.setItem(index,2,QtWidgets.QTableWidgetItem(str(cantidad)))
+                            subtotal=round(float(cantidad)*float(precio),2)
+                            var.ui.tableArticulos.setItem(index,3,QtWidgets.QTableWidgetItem(str(precio)))
+                            var.ui.tableArticulos.setItem(index,4,QtWidgets.QTableWidgetItem(str(subtotal)))
+                    index+=1
+                    var.subfac=round(float(subtotal)+float(var.subfac),2)
+            if int(index)>0:
+                ventas.Ventas.prepararTabVentas(index)
+            else:
+                print(index)
+                var.ui.tableArticulos.setRowCount(0)
+                ventas.Ventas.prepararTabVentas(0)
+            var.ui.lblSubtotal.setText(str(var.subfac))
+            var.iva=round(float(var.subfac)*0.21,2)
+            var.ui.lblIVA.setText(str(var.iva))
+            var.fac=round(float(var.iva)+float(var.subfac),2)
+            var.ui.lblTotal.setText(str(var.fac))
+        except Exception as error:
+            print('Error Listado de la tabla de ventas: %s ' % str(error))

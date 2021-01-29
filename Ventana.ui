@@ -1063,7 +1063,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="editCod_6">
+          <widget class="QLineEdit" name="lblTotal">
            <property name="minimumSize">
             <size>
              <width>60</width>
