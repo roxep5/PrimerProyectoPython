@@ -35,6 +35,7 @@ class Ventas:
             apel=var.ui.editApelido.text()
             if dni!='' and fecha!='':
                 conexion.Conexion.altaFact(dni, fecha, apel)
+            Ventas.cargarFacturas(self)
         except Exception as error:
             print("Error alta factura: %s" % str(error))
 
@@ -82,13 +83,14 @@ class Ventas:
             var.venta.append(row)
             if codfact!='' and articulo!='' and cantidad!='':
                 conexion.Conexion.altaVenta(self)
-                var.subfac=round(float(subtotal)+float(var.subfac),2)
+                '''var.subfac=round(float(subtotal)+float(var.subfac),2)
                 var.ui.lblSubtotal.setText(str(var.subfac))
-                var.iva=round(float(var.subfac)*21,2)
+                var.iva=round(float(var.subfac)*0.21,2)
                 var.ui.lblIVA.setText(str(var.iva))
                 var.fac=round(float(var.iva)+float(var.subfac),2)
                 var.ui.lblTotal.setText(str(var.fac))
-                #Ventas.mostrarVentasFac()
+                '''
+                Ventas.mostrarVentas(self)
             else:
                 print('Error ')
         except Exception as error:
@@ -102,6 +104,26 @@ class Ventas:
         except Exception as error:
             print('Error en proceso mostrar ventas por factura: %s'%str(error))
 
+    def borrarVenta(self):
+        try:
+            fila = var.ui.tableArticulos.selectedItems()
+            if fila:
+                fila = [dato.text() for dato in fila]
+                print("sss")
+            codventa = int(fila[0])
+            conexion.Conexion.borrarVenta(codventa)
+            Ventas.mostrarVentas(self)
+        except Exception as error:
+            print("error al borrar venta de una factura: %s" % str(error))
+
+    def borrarFactura(self):
+        try:
+            codFactura=int(var.ui.lblCodFact.text())
+            conexion.Conexion.borrarFacturas(codFactura)
+            conexion.Conexion.borrarVentasFacturas(codFactura)
+            Ventas.cargarFacturas(self);
+        except Exception as error:
+            print("error al borrar venta de una factura: %s"%str(error))
 
 
 

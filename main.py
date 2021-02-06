@@ -154,8 +154,9 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btnNuevaVenta.clicked.connect(ventas.Ventas.procesoVenta)
             var.ui.tableNfactura.clicked.connect(ventas.Ventas.mostrarVentas)
             var.ui.tableNfactura.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
-
-
+            var.ui.btneliminarVenta.clicked.connect(ventas.Ventas.borrarVenta)
+            var.ui.tableArticulos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+            var.ui.btnAnular.clicked.connect(ventas.Ventas.borrarFactura)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)

@@ -121,7 +121,6 @@ class Conexion():
                     var.ui.editApelido.setText(str(query.value(2)))
                     var.ui.lnNome.setText(query.value(3))
                     var.ui.spinEdad.setValue(int(query.value(9)))
-                    print('hola')
                     var.ui.cmbProv.setCurrentText(str(query.value(6)))
 
 
@@ -159,7 +158,6 @@ class Conexion():
                     var.ui.editApelido.setText(str(query.value(2)))
                     var.ui.lnNome.setText(query.value(3))
                     var.ui.spinEdad.setValue(int(query.value(9)))
-                    print('hola')
                     var.ui.cmbProv.setCurrentText(str(query.value(6)))
 
                     if str(query.value(7)) == 'Mujer':
@@ -256,7 +254,6 @@ class Conexion():
             query.prepare('select Codigo, NomeProd from productos order by NomeProd')
             if query.exec_():
                 while query.next():
-                    print("hola")
                     var.cmbVenta.addItem(str(query.value(1)))
         except Exception as error:
             print("error en cargar cmbventa %s "%str(error))
@@ -401,3 +398,29 @@ class Conexion():
             var.ui.lblTotal.setText(str(var.fac))
         except Exception as error:
             print('Error Listado de la tabla de ventas: %s ' % str(error))
+
+
+    def borrarVenta(codVenta):
+        query=QtSql.QSqlQuery()
+        query.prepare('delete from ventas where Clientes = :clientes')
+        query.bindValue(':clientes',codVenta)
+        if query.exec_():
+            var.ui.lblstatus.setText('Factura Anulada')
+        else:
+            print("Error baja venta: ",query.lastError().text())
+    def borrarFacturas(codFactura):
+        query=QtSql.QSqlQuery()
+        query.prepare('delete from Facturas where CodFactura=:codfactura')
+        query.bindValue(':codfactura',codFactura)
+        if query.exec_():
+            var.ui.lblstatus.setText('Factura Anulada')
+        else:
+            print("Error baja venta: ",query.lastError().text())
+    def borrarVentasFacturas(codFactura):
+        query=QtSql.QSqlQuery()
+        query.prepare('delete from Ventas where CodFact=:codfact')
+        query.bindValue(':codfact',codFactura)
+        if query.exec_():
+            print("Ventas eliminadas")
+        else:
+            print("Error baja ventasFact: ",query.lastError().text())
