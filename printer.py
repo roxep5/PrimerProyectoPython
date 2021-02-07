@@ -1,4 +1,5 @@
 from PyQt5 import QtSql
+from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 import os, var
 from  datetime import datetime
@@ -79,3 +80,65 @@ class Printer():
             var.rep.drawString(50,40,str(textlistado))
         except Exception as error:
             print('Error en el pie del informe: %s'%str(error))
+    def cabeceraPro(self):
+        try:
+
+            var.rep.setFont('Helvetica-Bold', size=9)
+            textListado='LISTADO DE PRODUCTOS'
+
+            var.rep.drawString(255, 750, textListado)
+            var.rep.line(45, 730, 525, 730)
+            itempro=['Codigo', 'Nombre','Precio(€)','Stock']
+            var.rep.drawString(45, 710, itempro[0])
+            var.rep.drawString(170, 710, itempro[1])
+            var.rep.drawString(350, 710, itempro[2])
+            var.rep.drawString(475, 710, itempro[3])
+            var.rep.line(45,703,525,703)
+
+        except Exception as error:
+            print('Error en cabecera 2 de clientes: %s'%str(error))
+
+    def reportProductos(self):
+        try:
+            textlistado = 'LISTADO DE PRODUCTOS'
+            var.rep = canvas.Canvas('informes/listadoproductos.pdf', pagesize=A4)
+            Printer.cabecera(self)
+            Printer.cabeceraPro(self)
+            Printer.pie(textlistado)
+            query = QtSql.QSqlQuery()
+            query.prepare('select codigo, NomeProd, PrecioUnidad ,Stock from productos order by Nomeprod')
+            if query.exec_():
+                 i = 50  # valores del eje X
+                 j = 690  # valores del eje Y
+                 while query.next():
+                     if j <= 80:
+                         var.rep.drawString(440, 70, 'Página siguiente...')
+                         var.rep.showPage()
+                         Printer.cabecera(self)
+                         Printer.pie(textlistado)
+                         Printer.cabeceraPro(self)
+                         i = 50
+                         j = 690
+                     var.rep.setFont('Helvetica', size=10)
+                     var.rep.drawString(i, j, str(query.value(0)))
+                     var.rep.drawString(i + 100, j, str(query.value(1)))
+                     var.rep.drawRightString(i + 325, j, str(query.value(2)))
+                     var.rep.drawRightString(i + 450, j, str(query.value(3)))
+                     j = j - 25
+            var.rep.save()
+            rootPath = ".\\informes"
+            cont = 0
+            for file in os.listdir(rootPath):
+                if file.endswith('listadoproductos.pdf'):
+                    os.startfile("%s/%s" % (rootPath, file))
+                cont = cont + 1
+        except Exception as error:
+            print('Error en cabecera 2 de clientes: %s' % str(error))
+
+    def reportFactura(self):
+        var.rep = canvas.Canvas('informes/factura.pdf')
+        Printer.cabecera(self)
+        var.rep.setFont('Helvetica-Bold', size=9)
+        textlistado = 'FACTURA'
+        var.rep.drawString(100, 750, textlistado)
+        var.rep.line(45, 730, 525, 730)

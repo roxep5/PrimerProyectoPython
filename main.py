@@ -143,6 +143,8 @@ class Main(QtWidgets.QMainWindow):
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
             var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
             var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
+            var.ui.actionListado_de_clientes.triggered.connect(Printer.reportFactura)
+            var.ui.actionListado_productos.triggered.connect(Printer.reportProductos)
             #Facturas
             ventas.Ventas.prepararTabVentas(0)
             var.ui.btnCalendarFactura.clicked.connect(ventas.Ventas.abrirCalendar)
