@@ -6,7 +6,22 @@ import var
 
 class Clientes():
     def validarDNI(dni):
+        '''
+
+        Móudulo que valida la letra de un dni según sea nacional o extranjerao
+
+        :param a: dni
+        :type: string
+        :return: None
+        :rtype: bool
+
+        Pone la letra en mayúsculas, comprueba que son nueve caracteres. Toma los 8 primeros, si extranjero
+        cambia la letra por el número, y aplica el algoritmo de comprobación de la letra basado en la normativa
+        Si es correcto devuelve True, si es falso devuelva False
+
+        '''
         try:
+
             tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
             dig_ext = "XYZ"
             reemp_dig_ext = {'X': '0', 'Y': '1', 'Z': '2'}
@@ -25,12 +40,21 @@ class Clientes():
 
     def abrirCalendar():
         try:
+            '''
+            modulo que abre el calendario para introducirlo en el editText
+            '''
             var.dlgcalendar.show()
         except Exception as error:
             print('Error: %s ' % str(error))
 
     def cargarFecha(qDate):
+        '''
+        carga la fecha en el edit text
+        :rtype: object
+        recibe el qdate y lo pasa al edit text en formato string
+        '''
         try:
+
             data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.lnCalendar.setText(str(data))
             var.dlgcalendar.hide()
@@ -39,6 +63,17 @@ class Clientes():
 
     def selProv(prov):
         try:
+            '''
+
+            Al seleccion una provincia en el combo de provincias llamba al evento cmbProv.activated que devuelve
+            la provincia selecccionada
+
+            :param a: provincia seleccionada
+            :type a: string
+            :return: None
+            :rtype: None
+
+            '''
             # print('Has se leccionado la provincia de ', prov)
             # return prov
             global vpro
@@ -48,6 +83,14 @@ class Clientes():
 
     def selSexo():
         try:
+            '''
+            Modulo que según checkemos el rbtbutton Fem o Masc carga el texto correspondiente de Mujer o Hombre a la
+            variable var.sex que luego se añade a la lista de los datos del cliente a incluir en la BBDD
+
+            :return: None
+            :rtype: None
+
+                    '''
             if var.ui.rbtFem.isChecked():
                 var.sex = 'Mujer'
             if var.ui.rbtMasc.isChecked():
@@ -57,6 +100,15 @@ class Clientes():
 
     def selPago():
         try:
+            '''
+
+            Cheque que valores de paga seleccion en el checkbos y los añade a una variable lista var.py
+
+            :return: None
+
+            En QtDesigner se debe agrupar los checkbox en un ButtonGroup
+
+            '''
             var.pay = []
             for i, data in enumerate(var.ui.grpbtnPagos.buttons()):
 
@@ -75,6 +127,20 @@ class Clientes():
 
     def showClients(self):
         # preparamos el registro
+        """
+
+        Módulo que carga los datos del cliente
+
+        :param a: None
+        :param b: None
+        :return: None
+
+        Se crea una lista newcli que contendrá todos los datos del cliente que se introduzcan en los widgets,
+        esta lista se pasa como argumento al módulo altaCli del módulo Conexión.
+        El módulo llama a la función mostrarClientes que recarga la tabla con todos los clientes además del nuevo
+        El módulo llama a la función limpiarCli que vacía el contenido de los widgets.
+
+        """
         try:
             newcli = []
             clitab = []
@@ -109,6 +175,14 @@ class Clientes():
             print('Error: show %s ' % str(error))
 
     def cargarCliente(self):
+        '''
+
+        Limpia datos formulario y recarga la tabla de clientes llamando al módulo mostrarClientes de la clase
+        Conexion
+
+        :return: None
+
+        '''
         try:
             fila = var.ui.cliTable.selectedItems()
             client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome]
@@ -123,7 +197,18 @@ class Clientes():
             print('Error: cargar %s ' % str(error))
 
     def bajaCliente(self):
+        """
 
+        Módulo que da de baja un cliente a partir del dni. Además recarga el widget tablaCli con los datos actualizados
+        desde la BBDD
+
+        :return: None
+        :rtype: None
+
+        Toma el dni cargado en el widget editDni se lo pasa al módulo bajaCli de la clase Conexión y da de bja el cliente.
+        Limpia los datos del formulario y recarga tablaCli
+
+        """
         try:
             dni = var.ui.lnDNI.text()
             conexion.Conexion.bajaCli(dni)
@@ -134,6 +219,15 @@ class Clientes():
 
     def limpiarCli(self):
         try:
+            '''
+
+            Modulo que vacía o limpia los datos del formulario cliente
+
+            :return: None
+
+            En los checkbox y radiobutton los pone a False.
+
+            '''
             client = [var.ui.lnDNI, var.ui.lnApel, var.ui.lnNome, var.ui.lnCalendar, var.ui.lnDir]
 
             for i in range(len(client)):
@@ -157,6 +251,19 @@ class Clientes():
 
     def modifCliente(self):
         try:
+            """
+
+            Módulos para modificar datos de un cliente con determinado código
+
+            :return: None
+            :rtype: None
+
+            A partir del código del cliente, lee los nuevos datos de los widgets que se han cargado y modificado,
+            llama al módulo modifCli de la clase Conexión para actualizar los datos en la BBDD pasándole una lista con
+            los nuevos datos.
+            Vuelve a mostrar la tablaCli actualizada pero no limpia datos de los widgets.
+
+            """
             newdata = []
             client = [
                 var.ui.lnDNI,
@@ -180,6 +287,14 @@ class Clientes():
 
     def valoresSpin(self):
         try:
+            '''
+
+            Módulo que se lanza con el programa cargando por defecto el valor 16 en el spinEdad
+
+            :return: None
+            :rtype: None
+
+            '''
             var.ui.spinEdad.setValue(18)
             #var.ui.spinEdad.(150)
             #var.ui.spinEdad.setMinimun(18)

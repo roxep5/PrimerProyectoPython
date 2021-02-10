@@ -6,17 +6,19 @@ import ventas
 
 
 class Conexion():
-    '''try:
-        HOST='localhost'
-        PORT='27017'
-        URI_CONNECTION='mongodb://'+HOST+':'+PORT+'/'
-        var.DATABASE='empresa'
-        print('Ok -- Conectado al servidor %s'%HOST)
-        print('Conexion de datos establecida')
-    except pymongo.errors.ServerSelectionTimeoutError as error:
-        print('Error en la conexion MongoDB: %s'%error)
-    #except pymongo.errors.ConnecionFailure as error:
-     #   print('No se puede conectar to MongoDB: %s'%error)'''
+    '''
+
+   Módulo que realiza la conexión de la aplicación con la BBDD
+
+   :param filename: nombre de la BBDD
+   :type: string
+   :return: True o False
+   :rtype: bool
+
+   Utiliza la librería de QtSql y el gestor de la BBDD es QSQlite. En caso de error muestra pantalla
+   de aviso.
+
+    '''
     def db_connect(filename):
         db=QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(filename)
@@ -32,6 +34,18 @@ class Conexion():
 
 
     def altaCli(cliente):
+        '''
+
+        Da de alta un cliente cuyos datos se pasan por una lista.
+        Muestra mensaje de resultado en el barra de estado.
+        Recarga la tabla actualizada de clientes
+
+        :param: cliente
+        :type: lista
+        :return: None
+        :rtype: None
+
+        '''
         query = QtSql.QSqlQuery()
 
         query.prepare('insert into clientes (dni, apelidos, nome, fechalta, direccion,edad, provincia, sexo, formapago)'
@@ -55,6 +69,14 @@ class Conexion():
         else:
             print("Error: altacli ", query.lastError().text())
     def mostrarClientes(self):
+        '''
+
+        Módulo que carga los datos del cliente por orden alfabético en la tabla Clientes
+
+        :return: None
+        :rtype: None
+
+        '''
         index=0
         query=QtSql.QSqlQuery()
         query.prepare('select dni, apelidos, nome from clientes')
@@ -71,6 +93,20 @@ class Conexion():
         else:
             print("Error mostrar clientes: ",query.lastError().text())
     def bajaCli(dni):
+        '''
+
+        Módulo para eliminar cliente.
+
+        :param dni
+        :type: string
+        :return None
+        :rtype None
+
+        Se pasa como argumento el dni del cliente a eliminar.
+        A continuación recarga la tablaCli actualizada
+        Muestra mensje resultado en la barra de estado
+
+        '''
         query=QtSql.QSqlQuery()
         query.prepare('delete from clientes where dni= :dni')
         query.bindValue(':dni',dni)
@@ -81,6 +117,21 @@ class Conexion():
             print("Error baja clientes: ",query.lastError().text())
 
     def modifCli(codigo,newdata):
+        '''
+
+        Módulo que actualiza datos de clinte
+
+        :param codigo: código cliente
+        :type codigo: int
+        :param newdata: datos cliente
+        :type newdata: lista
+        :return: None
+        :rtype: None
+
+        Recibe como parámetros el código del cliente a modificar así como los datos que deseamos modificar.
+        En realidad toma todos los datos que hay en los widgets de la pantalla clientes.
+
+        '''
         print(codigo,"   ",newdata)
         query=QtSql.QSqlQuery()
         codigo=int(codigo)
@@ -104,6 +155,14 @@ class Conexion():
             print('error modificar cliente: ',query.lastError().text())
 
     def cargarCliente(self):
+        '''
+
+        Muestra los datos por pantalla de un cliente cuando se clickea sobre el mismo en la tabla.
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             dni=var.ui.lnDNI.text()
             query=QtSql.QSqlQuery()
@@ -142,6 +201,17 @@ class Conexion():
             print('Error: cargarCli %s ' % str(error))
     def buscarCli(dni):
         try:
+            '''
+
+            Módulos que busca un cliente y carga sus datos en la pantalla cliente
+
+            :param dni: dni cliente a buscar
+            :type dni: string
+            :return: None
+            :rtype: None
+
+            '''
+
             dni = var.ui.lnDNI.text()
             query = QtSql.QSqlQuery()
 
@@ -178,6 +248,18 @@ class Conexion():
             print('Error: cargarCli %s ' % str(error))
 #Productos
     def altaProd(Prod):
+        '''
+
+        Da de alta un producto cuyos datos se pasan por una lista.
+        Muestra mensaje de resultado en el barra de estado.
+        Recarga la tabla actualizada de productos
+
+        :param: producto
+        :type: lista
+        :return: None
+        :rtype: None
+
+        '''
         query = QtSql.QSqlQuery()
 
         query.prepare('insert into Productos (NomeProd,PrecioUnidad,Stock)'
@@ -191,6 +273,14 @@ class Conexion():
         else:
             print("Error: altaProd ", query.lastError().text())
     def mostrarProductos(self):
+        '''
+
+        Módulo que carga los datos del producto por orden alfabético en la tabla Productos
+
+        :return: None
+        :rtype: None
+
+        '''
         index=0
         query=QtSql.QSqlQuery()
         query.prepare('select * from Productos order by NomeProd')
@@ -208,6 +298,20 @@ class Conexion():
             print("Error mostrar productos: ", query.lastError().text())
 
     def bajaProductos(id):
+        ''''
+
+        Módulo para eliminar producto del inventario.
+
+        :param cod
+        :type: int
+        :return None
+        :rtype None
+
+        Se pasa como argumento el código del producto a eliminar.
+        A continuación recarga la tablaProd actualizada
+        Muestra mensaje resultado en la barra de estado
+
+        '''
         query = QtSql.QSqlQuery()
         query.prepare('delete from Productos where Codigo= :Codigo')
         query.bindValue(':Codigo', id)
@@ -217,6 +321,17 @@ class Conexion():
         else:
             print("Error baja Producto: ", query.lastError().text())
     def cargarProd(cod):
+        '''
+
+        Muestra los datos por pantalla de un producto cuando se clickea sobre el mismo en la tabla.
+
+        :param cod: código del producto
+        :type cod: entero
+        :return: None
+        :rtype: None
+
+        '''
+
         query = QtSql.QSqlQuery()
 
         query.prepare('select NomeProd, PrecioUnidad, Stock from Productos where codigo=:codigo')
@@ -229,24 +344,49 @@ class Conexion():
                 var.ui.editPrecioProd.setText(str(query.value(1)))
                 var.ui.editStock.setText(str(query.value(2)))
     def modificarProd(codigo, newdata):
-            print(codigo, "   ", newdata)
-            query = QtSql.QSqlQuery()
-            codigo = int(codigo)
-            query.prepare('update Productos set NomeProd=:NomeProd, PrecioUnidad=:PrecioUnidad,Stock=:Stock'
-                          ' where Codigo=:Codigo')
-            query.bindValue(':Codigo', int(codigo))
-            query.bindValue(':NomeProd', str(newdata[0]))
-            query.bindValue(':PrecioUnidad', round(float(newdata[1])))
-            query.bindValue(':Stock', int(newdata[2]))
-            print( newdata)
-            if query.exec_():
-                print('producto modificado')
-                var.ui.lblstatus.setText('producto con id modificado' + str(codigo))
-                conexion.Conexion.mostrarProductos(None)
-            else:
-                print('error modificar producto: ', query.lastError().text())
+        '''
+
+        Módulo que actualiza datos del producto
+
+        :param cod: código producto
+        :type cod: int
+        :param newdata: datos producto
+        :type newdata: lista
+        :return: None
+        :rtype: None
+
+        Recibe como parámetros el código del producto a modificar así como los datos que deseemos modificar.
+        En realidad toma todos los datos que hay en los widgets de la pantalla productos.
+        El precio se formatea con dos decimales y punto.
+        Muestra resultado en la barra de estado
+
+        '''
+        print(codigo, "   ", newdata)
+        query = QtSql.QSqlQuery()
+        codigo = int(codigo)
+        query.prepare('update Productos set NomeProd=:NomeProd, PrecioUnidad=:PrecioUnidad,Stock=:Stock'
+                      ' where Codigo=:Codigo')
+        query.bindValue(':Codigo', int(codigo))
+        query.bindValue(':NomeProd', str(newdata[0]))
+        query.bindValue(':PrecioUnidad', round(float(newdata[1])))
+        query.bindValue(':Stock', int(newdata[2]))
+        print( newdata)
+        if query.exec_():
+            print('producto modificado')
+            var.ui.lblstatus.setText('producto con id modificado' + str(codigo))
+            conexion.Conexion.mostrarProductos(None)
+        else:
+            print('error modificar producto: ', query.lastError().text())
 
     def cargarCmbVenta(cmbventa):
+        '''
+
+        Módulo que carga los datos en el combobox provincias haciendo un llamada a la BBDD.
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.cmbVenta.clear()
             query=QtSql.QSqlQuery()
@@ -260,6 +400,24 @@ class Conexion():
 
 
     def altaFact(dni, fecha, apel):
+        '''
+
+        Módulo que da de alta una factura previa al proceso de venta
+
+        :param dni: dni cliente
+        :type dni: string
+        :param fecha: fecha de alta de la factura
+        :type fecha: formato fecha en string
+        :param apel: apellidos del ciente
+        :type apel: string
+        :return: None
+        :rtype: None
+
+        Recibe datos para carga la factura en la BBDD y en la tabla Factura. Además obtiene el código de la
+        factura dada de alta para cargarla en el label lblNumFac ya que al ser autonumérico no se obtiene hasta
+        que previamente insertemos la factura.
+
+        '''
         try:
             query=QtSql.QSqlQuery()
             query.prepare('insert into facturas(dni, fecha, apellidos) VALUES (:dni, :fecha, :apellidos)')
@@ -279,6 +437,14 @@ class Conexion():
             print("error en altafact %s "%str(error))
 
     def mostrarFacturas(self):
+        '''
+
+        Módulo que carga los datos de la factura por orden descendente numérico en la tabla Facturas
+
+        :return: None
+        :rtype: None
+
+        '''
         index=0
         query=QtSql.QSqlQuery()
         query.prepare('select Codfactura,Dni, fecha from facturas')
@@ -296,19 +462,39 @@ class Conexion():
             print("Error mostrar facturas: ",query.lastError().text())
 
     def cargarFactura(cod):
-            query = QtSql.QSqlQuery()
-            query.prepare('select fecha,dni, apellidos from Facturas where CodFactura=:codfactura')
-            query.bindValue(':codfactura', cod)
-            print(cod)
-            if query.exec_():
-                while query.next():
-                    var.ui.lblCodFact.setText(str(cod))
-                    var.ui.editFechaFactura.setText(str(query.value(0)))
-                    var.ui.editDniFactura.setText(str(query.value(1)))
-                    var.ui.editApelido.setText(str(query.value(2)))
-            else:
-                print("Error cargar facturas: ", query.lastError().text())
+        '''
+
+        Módulo que carga datos de un factura en los widgets al clickear sobre una fila de la tablaPro
+
+        :param cod: código de la factura
+        :type cod: int
+        :return: None
+        :rtype: None
+
+        '''
+        query = QtSql.QSqlQuery()
+        query.prepare('select fecha,dni, apellidos from Facturas where CodFactura=:codfactura')
+        query.bindValue(':codfactura', cod)
+        print(cod)
+        if query.exec_():
+            while query.next():
+                var.ui.lblCodFact.setText(str(cod))
+                var.ui.editFechaFactura.setText(str(query.value(0)))
+                var.ui.editDniFactura.setText(str(query.value(1)))
+                var.ui.editApelido.setText(str(query.value(2)))
+        else:
+            print("Error cargar facturas: ", query.lastError().text())
     def obtenetCodPrec(articulo):
+        '''
+
+        Módulo que devuelve el precio y código del producto que se pasa como parámetro
+
+        :param: articulo
+        :type: string
+        :return: dato
+        :rtype: lista que contiene código y precio del producto
+
+        '''
         dato=[]
         query=QtSql.QSqlQuery()
         query.prepare('select codigo, precioUnidad from productos where NomeProd =:articulo')
@@ -333,6 +519,17 @@ class Conexion():
     #def listadoVentasfac(codfact):
 
     def altaVenta(self):
+        '''
+
+        Módulo que añade líneas de venta en una factura creada
+
+        :return: None
+        :rtype: None
+
+        Inserta en la tabla ventas una línea de venta que se va mostrando cada vez que realizamos la transacción.
+        Tras realizar la venta se crea una nueva factura incluyendo el combobox de selección de artículor
+
+        '''
         query=QtSql.QSqlQuery()
         query.prepare('insert into ventas (codfact, codart, cantidad,precio) VALUES (:codfact,:codart,:cantidad, :precio)')
         query.bindValue(':codfact',int(var.venta[0]))
@@ -355,7 +552,25 @@ class Conexion():
             print("Error alta venta: ", query.lastError().text())
 
     def listadoVentasFact(codfact):
+        """
 
+        Módulo que lista las ventas contenidaa en una factura
+
+        :param codfac: valor factura a la que se incluirán las líneas de venta
+        :type codfac: int
+        :return: None
+        :rtype: None
+
+        Recibe el código de la factura para seleccionar los datos de las ventas cargadas a esta.
+        De la BB.DD toma el nombre del producto y su precio para cada línea de venta. El precio lo multiplica
+        por las unidades y se obtiene el subtotal de cada línea. Después en cada línea de la tabla irá
+        el código de la venta, el nombre del producto, las unidades y el subtotal.
+        Finalmente, va sumando el subfact, que es la suma de todas las ventas de esa factura, le aplica el IVA y
+        el importe total de la factura. Los tres valores, subfact, iva y fac los muestra en los label asignados.
+
+        En excepciones se recoge cualquier error que se produzca en la ejecución del módulo.
+
+        """
         try:
             var.ui.tableArticulos.clearContents()
             var.subfac=0.00
@@ -401,6 +616,17 @@ class Conexion():
 
 
     def borrarVenta(codVenta):
+        '''
+
+        Módulo que anula una linea de venta de una factura
+
+        :param: codVenta que es el código de la venta a anlar
+        :return: None
+        :rtype: None
+
+        Muestra mensaje en la barra de estado
+
+        '''
         query=QtSql.QSqlQuery()
         query.prepare('delete from ventas where Clientes = :clientes')
         query.bindValue(':clientes',codVenta)
@@ -409,6 +635,19 @@ class Conexion():
         else:
             print("Error baja venta: ",query.lastError().text())
     def borrarFacturas(codFactura):
+        '''
+
+        Módulo que borra una factura y todas las ventas asociadas a esa factura
+
+        :param: codfac o código de la factura
+        :type: int
+        :return: None
+        :rtype: None
+
+        En primer lugar borra la factura y luego vuelve a realizar una llamada a la base de datos para
+        borrar todas aquellas ventas asociadas a esa factura.
+
+        '''
         query=QtSql.QSqlQuery()
         query.prepare('delete from Facturas where CodFactura=:codfactura')
         query.bindValue(':codfactura',codFactura)

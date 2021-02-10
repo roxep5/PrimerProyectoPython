@@ -17,6 +17,17 @@ class Ventas:
         print('Error alta factura %s '%str(error))
     '''
     def prepararTabVentas(index):
+        '''
+
+        Módulo que graba una factura previa al proceso de ventas.
+
+        :return: None
+        :rtype: None
+
+        Una vez grabada recarga la tabla Factura
+        Y prepara la tabla de Ventas.
+
+        '''
         try:
             var.cmbVenta=QtWidgets.QComboBox()
             conexion.Conexion.cargarCmbVenta(var.cmbVenta)
@@ -29,6 +40,17 @@ class Ventas:
         except Exception as error:
             print("Preparar tabla de ventas: %s"% str(error))
     def altaFactura(self):
+        '''
+
+        Módulo que graba una factura previa al proceso de ventas.
+
+        :return: None
+        :rtype: None
+
+        Una vez grabada recarga la tabla Factura
+        Y prepara la tabla de Ventas.
+
+        '''
         try:
             dni=var.ui.editDniFactura.text()
             fecha=var.ui.editFechaFactura.text()
@@ -40,6 +62,18 @@ class Ventas:
             print("Error alta factura: %s" % str(error))
 
     def cargarFecha(qDate):
+        ''''
+
+        Módulo se ejecuta cuando clickeamos en un día del calendar, es decir, clicked de calendar
+
+        :param qDate para formatear la fecha
+        :type: None
+        :return: None
+        :rtype: None
+
+        Cuando clickeamos en el calendario carga la fecha en editFecha
+
+        '''
         try:
             data = ('{0}/{1}/{2}'.format(qDate.day(), qDate.month(), qDate.year()))
             var.ui.editFechaFactura.setText(str(data))
@@ -47,11 +81,27 @@ class Ventas:
         except Exception as error:
             print('Error al cargar fecha: %s ' % str(error))
     def abrirCalendar(self):
+        '''
+
+        Módulo que abre la ventana calendario para cargar la fecha facura
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.dlgcalendarF.show()
         except Exception as error:
             print('Error: %s ' % str(error))
     def cargarFacturas(self):
+        '''
+
+        Módulo que carga los datos de la factura y cliente al clickear en la tabla Factura
+
+        :return:None
+        :type: None
+
+        '''
         try:
             var.subfac=0.00
             var.fac=0.00

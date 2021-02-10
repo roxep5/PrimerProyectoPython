@@ -11,6 +11,15 @@ class Eventos():
     #   try:
     #      print('Error: %s '%str(error))
     def Salir(event):
+        '''
+
+        Módulo para cerrar el programa
+
+        :return: None
+
+        Muestra ventana de aviso
+
+        '''
         try:
             var.dlgsalir.show()
             if var.dlgsalir.exec_():
@@ -38,6 +47,15 @@ class Eventos():
 
     def validoDNI():
         try:
+            """
+
+                   Modulo que según sea correcto el dni o no, muestra una imagen distinta
+
+                   :return: none
+
+                   Si es falso escribe en el label una cruz roja si es true devuelve una V verda
+
+                   """
             dni = var.ui.lnDNI.text()
             if Clients.Clientes.validarDNI(dni):
                 var.ui.lblValido.setStyleSheet('QLabel {color: green;}')
@@ -52,6 +70,15 @@ class Eventos():
             print('Error: dni %s' % str(error))
 
     def cargarProv():
+        """
+
+        Módulo que se ejecuta al principio para cargar las provincias. En versión posterior cargaremos
+        y municipios desde la BBDD.
+
+        :return: None
+        :rtype: None
+
+        """
         try:
             prov = ['', 'A Coruña', 'Lugo', 'Ourense', 'Pontevedra']
             for i in prov:
@@ -60,6 +87,14 @@ class Eventos():
             print('Error: prov %s ' % str(error))
 
     def Confirmar(self):
+        '''
+
+        Ventana de confirmación
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             if var.cliente:
                 Clients.Clientes.bajaCliente()
@@ -71,6 +106,13 @@ class Eventos():
 
     def mostrarAvisoCli():
         try:
+            '''
+
+            Ventana de aviso
+            :return: None
+            :rtype: None
+
+            '''
             var.cliente=True
             #var.dlgaviso.addWidget(var.ui.lblstatus, 1)
             #var.dlgaviso.lblAviso.SetText('Hey')
@@ -78,17 +120,41 @@ class Eventos():
         except Exception as error:
             print('Error mostrar aviso: % '%str(error))
     def Anular(self):
+        '''
+
+        Ventana de confirmación
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.dlgaviso.hide()
             print("hola")
         except Exception as error:
             print('Error Boton anula %s '%str(error))
     def abrirDir(self):
+        '''
+
+        Módulo que abre una ventana de diálogo
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.filedlgabrir.show()
         except Exception as error:
             print('Error abrir explorador: % ' % str(error))
     def abrirPrinter(self):
+        '''
+
+        Módulo que abre la ventana de diálogo de la impresora
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.dlgimprimir.setWindowTitle('Imprimir')
             var.dlgimprimir.setModal(True)
@@ -96,6 +162,17 @@ class Eventos():
         except Exception as error:
             print('Error abrir explorador: % ' % str(error))
     def Backup(self):
+        '''
+
+        Módulo que realizar el backup de la BBDD
+
+        :return: None
+        :rtype: None
+
+        Utiliza la librería zipfile, añade la fecha y hora de la copia al nombre de esta y tras realizar la copia
+        la mueve al directorio deseado por el cliente. Para ello abre una ventana de diálogo
+
+        '''
         try:
             fecha=datetime.now()
             fichzip=zipfile.ZipFile('_backup.zip','w')

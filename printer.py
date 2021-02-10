@@ -12,6 +12,20 @@ class Printer():
         fecha=fecha.strftime('%d.%n.%Y %H.%M.%S')
     '''
     def reportCli(self):
+        '''
+
+       Módulo que llama a la BBDD captura datos de lso clientes ordenados alfabéticamente y los va mostrando
+       en el informe.
+
+       :return: None
+       :rtype: None
+
+       la variable i represnta los valores del eje X,
+       la variable j representa los valores del eje Y
+       Los informes se guardan en la capreta informe y al mismo tiempo se muestran con el lector pdf que existe
+       por defecto en el sistema.
+
+       '''
         try:
             var.rep=canvas.Canvas('informes/listadoclientes.pdf')
             Printer.cabecera(self)
@@ -52,6 +66,14 @@ class Printer():
            print('Error reporcli %s'%str(error))
 
     def cabecera(self):
+        '''
+
+        Módulo que carga la cabecera de todos los informes de la empresa, datos fiscales...
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
 
             var.rep.setTitle('INFORMES')
@@ -70,6 +92,17 @@ class Printer():
         except Exception as error:
             print('Error en la cabecera del informe: %s'%str(error))
     def pie(textlistado):
+        '''
+
+        Módulo que carga el pié del inforem. Es igual para todos excepto el nombre del informe
+        que se pasa con la variable textlistado
+
+        :param textlistado: según el contenido del informe
+        :type: string
+        :return: None
+        :rtype: None
+
+        '''
         try:
             var.rep.line(50,50,525,50)
             fecha=datetime.today()
@@ -81,6 +114,14 @@ class Printer():
         except Exception as error:
             print('Error en el pie del informe: %s'%str(error))
     def cabeceraPro(self):
+        '''
+
+        Módulo que carga la cabecera de página del informe productos
+
+        :return: None
+        :rtype: None
+
+        '''
         try:
 
             var.rep.setFont('Helvetica-Bold', size=9)
@@ -99,6 +140,20 @@ class Printer():
             print('Error en cabecera 2 de clientes: %s'%str(error))
 
     def reportProductos(self):
+        '''
+
+        Módulo que llama a la BBDD captura datos de los productos ordenados alfabéticamente y los va mostrando
+        en el informe.
+
+        :return: None
+        :rtype: None
+
+        la variable i represnta los valores del eje X,
+        la variable j representa los valores del eje Y
+        Los informes se guardan en la capreta informe y al mismo tiempo se muestran con el lector pdf que existe
+        por defecto en el sistema.
+
+        '''
         try:
             textlistado = 'LISTADO DE PRODUCTOS'
             var.rep = canvas.Canvas('informes/listadoproductos.pdf', pagesize=A4)

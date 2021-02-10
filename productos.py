@@ -8,6 +8,13 @@ import var
 
 class Productos():
     def nuevoProducto(self):
+        '''
+
+        Módulo que insertar los proudctos en la tabla y en la base de datos
+        en las búsquedas mostrará los datos del producto
+        :return: None
+        :rtype: None
+        '''
         try:
 
             newProd=[]
@@ -22,7 +29,14 @@ class Productos():
         except Exception as error:
             print('Error buscar clientes: % ' % str(error))
     def bajaProducto(self):
+        """
 
+        Módulo para dar de baja un producto y recarga la tabla productos y limpia el formulario productos
+
+        :return: None
+        :type: None
+
+        """
         try:
             id = var.ui.editCod.text()
             conexion.Conexion.bajaProductos(id)
@@ -31,6 +45,14 @@ class Productos():
         except Exception as error:
             print('Error: baja %s ' % str(error))
     def cargarProd(self):
+        '''
+
+        Módulo que carga en widgets formulario productos la fila que se clickea en la tablaPro
+
+        :return: None
+        :type: None
+
+        '''
         try:
             fila = var.ui.tableProd.selectedItems()
             producto = [var.ui.editNombreProd,var.ui.editPrecioProd,var.ui.editStock]
@@ -49,6 +71,16 @@ class Productos():
 
 
     def modificarProd(self):
+        """
+
+        Módulo para modificar datos de un producto con determinado código
+
+        :return: None
+        :rtype: None
+
+        Además recarga la tabla de productos con los valores actualizados
+
+        """
         try:
             newdata = []
             client = [
