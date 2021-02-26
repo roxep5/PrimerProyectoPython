@@ -197,3 +197,20 @@ class Printer():
         textlistado = 'FACTURA'
         var.rep.drawString(100, 750, textlistado)
         var.rep.line(45, 730, 525, 730)
+        codfact=var.ui.lblCodFact.text()
+        Printer.cabeceraFact(codfact)
+        query=QtSql.QSqlQuery()
+        query.prepare('select Clientes, codart, cantidad,precio from ventas where codfact=:codfact')
+        query.bindValue(':codfact',codfact)
+        if query.exec_():
+            i=55
+            j=600
+            while query.next():
+                if j<=100:
+                    var.rep.drawString((440,110,'Pagina siguiente...'))
+                    var.rep.showPage()
+                    Printer.cabecera(self)
+                    Printer.pie(textlistado)
+                    Printer.cabeceraFact(self)
+                    i=50
+                    j=600
