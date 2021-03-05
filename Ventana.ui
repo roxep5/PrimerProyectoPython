@@ -45,7 +45,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1914,8 +1914,12 @@
      <string>Informes</string>
     </property>
     <addaction name="actionListado_de_clientes"/>
+    <addaction name="separator"/>
     <addaction name="actionImprimir_factura"/>
+    <addaction name="separator"/>
     <addaction name="actionListado_productos"/>
+    <addaction name="separator"/>
+    <addaction name="actionFacturas_Cliente"/>
    </widget>
    <widget class="QMenu" name="menuAcerca_de">
     <property name="title">
@@ -1923,8 +1927,18 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuBBDD">
+    <property name="title">
+     <string>BBDD</string>
+    </property>
+    <addaction name="actionImportar_Datos"/>
+    <addaction name="separator"/>
+    <addaction name="actionRestaurar"/>
+    <addaction name="actionBackup"/>
+   </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuinformes"/>
+   <addaction name="menuBBDD"/>
    <addaction name="menuAcerca_de"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -2038,6 +2052,26 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionFacturas_Cliente">
+   <property name="text">
+    <string>Facturas Cliente</string>
+   </property>
+  </action>
+  <action name="actionRestaurar">
+   <property name="text">
+    <string>Restaurar</string>
+   </property>
+  </action>
+  <action name="actionBackup">
+   <property name="text">
+    <string>Backup</string>
+   </property>
+  </action>
+  <action name="actionImportar_Datos">
+   <property name="text">
+    <string>Importar Datos</string>
    </property>
   </action>
  </widget>

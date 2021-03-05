@@ -111,7 +111,7 @@ class Main(QtWidgets.QMainWindow):
             var.chkPago=(var.ui.chkEfectivo,var.ui.chkTarjeta,var.ui.chkTransf)
             for i in var.chkPago:
                 i.stateChanged.connect(Clients.Clientes.selPago)
-            events.Eventos.cargarProv()
+            events.Eventos.cargarProv(self)
             var.ui.cmbProv.activated[str].connect(Clients.Clientes.selProv)
             var.ui.cliTable.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             var.ui.btnOk.clicked.connect(Clients.Clientes.showClients)
@@ -143,7 +143,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.tableProd.clicked.connect(productos.Productos.cargarProd)
             var.ui.actionAbout.triggered.connect(events.Eventos.MostrarVentanaAbout)
             var.ui.actionListado_de_clientes.triggered.connect(Printer.reportCli)
-            var.ui.actionListado_de_clientes.triggered.connect(Printer.reportFactura)
+            var.ui.actionImprimir_factura.triggered.connect(Printer.reportFactura)
             var.ui.actionListado_productos.triggered.connect(Printer.reportProductos)
             #Facturas
             ventas.Ventas.prepararTabVentas(0)
@@ -159,6 +159,10 @@ class Main(QtWidgets.QMainWindow):
             var.ui.btneliminarVenta.clicked.connect(ventas.Ventas.borrarVenta)
             var.ui.tableArticulos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
             var.ui.btnAnular.clicked.connect(ventas.Ventas.borrarFactura)
+            var.ui.actionFacturas_Cliente.triggered.connect(Printer.facporCli)
+            var.ui.actionRestaurar.triggered.connect(events.Eventos.restaurarBD)
+            var.ui.actionBackup.triggered.connect(events.Eventos.Backup)
+            var.ui.actionImportar_Datos.triggered.connect(events.Eventos.importarDatos)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)

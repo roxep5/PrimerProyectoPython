@@ -14,7 +14,7 @@ global cliente
 global lblMensaviso
 pay = []
 pay2 = []
-filebd = 'empresa.db'
+filebd = 'empresa2.db'
 global DATABASE
 global dlgAbout
 global dlgModificar
@@ -24,3 +24,4 @@ global subfac
 global iva
 global fac
 global venta
+global copia

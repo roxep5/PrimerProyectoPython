@@ -1,9 +1,13 @@
+import shutil
+
 import Clients
 import conexion
 import var
 import sys
 from datetime import  datetime
 import zipfile,os
+from PyQt5 import QtWidgets, QtSql
+import xlrd
 
 class Eventos():
 
@@ -45,7 +49,7 @@ class Eventos():
     eventos clientes
     '''
 
-    def validoDNI():
+    def validoDNI(self):
         try:
             """
 
@@ -69,7 +73,7 @@ class Eventos():
         except Exception as error:
             print('Error: dni %s' % str(error))
 
-    def cargarProv():
+    def cargarProv(self):
         """
 
         Módulo que se ejecuta al principio para cargar las provincias. En versión posterior cargaremos
@@ -104,7 +108,7 @@ class Eventos():
         except Exception as error:
             print('Error: confirmar %s ' % str(error))
 
-    def mostrarAvisoCli():
+    def mostrarAvisoCli(self):
         try:
             '''
 
@@ -207,3 +211,119 @@ class Eventos():
             var.dlgModificar.hide()
         except Exception as error:
             print('Error Boton aceptar mod %s '%str(error))
+    def restaurarBD(self):
+        '''
+
+        Módulo que restaura la BBDD
+
+        :return: None
+        :rtype: None
+
+        Abre ventana de diálogo para buscar el directorio donde está copia de la BBDD y la restaura haciendo suo
+        de la librería zipfile
+        Muestra mensaje de confirmación
+
+        '''
+        try:
+            option = QtWidgets.QFileDialog.Options()
+            filename = var.filedlgabrir.getOpenFileName(None, 'Restaurar Copia de Seguridad','','*.zip;;All Files', options= option)
+            if var.filedlgabrir.Accepted and filename != '':
+                file = filename[0]
+                with zipfile.ZipFile(str(file),'r') as bbdd:
+                    bbdd.extractall(pwd=None)
+                bbdd.close()
+            conexion.Conexion.db_connect(var.filebd)
+            conexion.Conexion.mostrarClientes(self)
+            conexion.Conexion.mostrarProducts(self)
+            conexion.Conexion.mostrarFacturas(self)
+            var.ui.lblstatus.setText('COPIA DE SEGURIDAD RESTAURDA')
+        except Exception as error:
+            print('Error restaurar base de datos: %s '  % str(error))
+
+    def Backup(self):
+        '''
+
+        Módulo que realizar el backup de la BBDD
+
+        :return: None
+        :rtype: None
+
+        Utiliza la librería zipfile, añade la fecha y hora de la copia al nombre de esta y tras realizar la copia
+        la mueve al directorio deseado por el cliente. Para ello abre una ventana de diálogo
+
+        '''
+        try:
+            fecha = datetime.today()
+            fecha = fecha.strftime('%Y.%m.%d.%H.%M.%S')
+            var.copia = (str(fecha) + '_backup.zip')
+            option = QtWidgets.QFileDialog.Options()
+            directorio, filename = var.filedlgabrir.getSaveFileName(None, 'Guardar Copia', var.copia, '.zip', options=option)
+            if var.filedlgabrir.Accepted and filename != '':
+                fichzip = zipfile.ZipFile(var.copia, 'w')
+                fichzip.write(var.filebd, os.path.basename(var.filebd), zipfile.ZIP_DEFLATED)
+                fichzip.close()
+                var.ui.lblstatus.setText('COPIA DE SEGURIDAD DE BASE DE DATOS CREADA')
+                shutil.move(str(var.copia), str(directorio))
+        except Exception as error:
+            print('Error: %s' % str(error))
+    def importarDatos(self):
+        # Abrimos o ficheiro excel
+        documento = xlrd.open_workbook("MercaEstadisticas.xls")
+        # Podemos gardar cada unha das follas por separado
+        productos = documento.sheet_by_index(0)
+        # Lemos o numero de ringleiras e columnas da folla de lacteos
+        columnas_lacteos = productos.ncols
+        print("lacteos tiene " + str(columnas_lacteos) + " ringleiras y " +
+              str(columnas_lacteos) + " columnas")
+
+        # Mostramos o contido contido de tódalas ringleiras da folla de froitas
+        for i in range(productos.ncols):  # froitas.ncols é o número columnas
+            ringleira = productos.row(i)  # froitas.col(i) para mostrar las columnas
+            print(ringleira)
+
+        # Mostramos la informacion de todas las froitas
+
+        for i in range(1, productos.nrows):  # Ignoramos la primera fila, que indica los campos
+            print(productos.cell_value(i,2))
+            nombre=productos.cell_value(i,0)
+            precio=productos.cell_value(i,1)
+            stock=productos.cell_value(i,2)
+
+            query1 = QtSql.QSqlQuery()
+
+            query2 = QtSql.QSqlQuery()
+
+            query1.prepare('select codigo, preciounidad, stock from productos where nomeprod=:nomeprod')
+            query1.bindValue(':nomeprod', str(nombre))
+
+            if query1.exec_():
+                query2.prepare('update productos set stock=:stock, preciounidad=:preciounidad where nomeprod= :nomeprod')
+                query2.bindValue(':nomeprod',str(nombre))
+                print(str(nombre))
+                #todo
+                if query2.exec_():
+                    query2.bindValue(':preciounidad',float(precio))
+                    query2.bindValue(':stock',int(stock))
+                    print('Actualizado')
+                else:
+                    print('error en la actualizacion')
+                query1.finish()
+                query2.finish()
+
+            else:
+                query = QtSql.QSqlQuery()
+                query.prepare('insert into productos (nomeprod, preciounidad, stock) values (:nomeprod, :preciounidad, :stock)')
+                query.bindValue(':nomeprod',str(nombre))
+                query.bindValue(':preciounidad',float(precio))
+                query.bindValue(':stock',int(stock))
+                print("Error baja ventasFact:")
+                if query.exec_():
+
+                    query.finish()
+                else:
+                    print("Error baja ventasFact: ", query.lastError().text())
+                query.finish()
+                query1.finish()
+                print('nuevo creado')
+
+        print("---------")
