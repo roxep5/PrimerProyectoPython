@@ -266,25 +266,41 @@ class Eventos():
                 shutil.move(str(var.copia), str(directorio))
         except Exception as error:
             print('Error: %s' % str(error))
-    def importarDatos(self):
-        # Abrimos o ficheiro excel
-        documento = xlrd.open_workbook("MercaEstadisticas.xls")
-        # Podemos gardar cada unha das follas por separado
+    def ventanaImp(self):
+        '''
+
+        Módulo que restaura la BBDD
+
+        :return: None
+        :rtype: None
+
+        Abre ventana de diálogo para buscar el directorio donde está copia de la BBDD y la restaura haciendo suo
+        de la librería zipfile
+        Muestra mensaje de confirmación
+
+        '''
+        try:
+            option = QtWidgets.QFileDialog.Options()
+            filename = var.filedlgabrir.getOpenFileName(None, 'Importar datos','','*.xls;;All Files', options= option)
+            if var.filedlgabrir.Accepted and filename != '':
+                file = filename[0]
+                Eventos.importarDatos(file)
+            var.ui.lblstatus.setText('COPIA DE SEGURIDAD RESTAURDA')
+        except Exception as error:
+            print('Error restaurar base de datos: %s '  % str(error))
+    def importarDatos(file):
+        documento = xlrd.open_workbook(file)
         productos = documento.sheet_by_index(0)
-        # Lemos o numero de ringleiras e columnas da folla de lacteos
         columnas_lacteos = productos.ncols
         print("lacteos tiene " + str(columnas_lacteos) + " ringleiras y " +
               str(columnas_lacteos) + " columnas")
 
-        # Mostramos o contido contido de tódalas ringleiras da folla de froitas
-        for i in range(productos.ncols):  # froitas.ncols é o número columnas
-            ringleira = productos.row(i)  # froitas.col(i) para mostrar las columnas
+        for i in range(productos.ncols):
+            ringleira = productos.row(i)
             print(ringleira)
 
-        # Mostramos la informacion de todas las froitas
 
-        for i in range(1, productos.nrows):  # Ignoramos la primera fila, que indica los campos
-            print(productos.cell_value(i,2))
+        for i in range(1, productos.nrows):
             nombre=productos.cell_value(i,0)
             precio=productos.cell_value(i,1)
             stock=productos.cell_value(i,2)
@@ -293,22 +309,26 @@ class Eventos():
 
             query2 = QtSql.QSqlQuery()
 
-            query1.prepare('select codigo, preciounidad, stock from productos where nomeprod=:nomeprod')
-            query1.bindValue(':nomeprod', str(nombre))
+            query1.prepare('select * from productos where nomeprod = :nomeprod')
+            query1.bindValue(':nomeprod', nombre)
 
             if query1.exec_():
-                query2.prepare('update productos set stock=:stock, preciounidad=:preciounidad where nomeprod= :nomeprod')
-                query2.bindValue(':nomeprod',str(nombre))
-                print(str(nombre))
-                #todo
-                if query2.exec_():
-                    query2.bindValue(':preciounidad',float(precio))
-                    query2.bindValue(':stock',int(stock))
-                    print('Actualizado')
-                else:
-                    print('error en la actualizacion')
-                query1.finish()
-                query2.finish()
+                while query1.next():
+                    print(nombre + " " + str(query1.value(0)))
+                    query2.prepare('update productos set preciounidad=:preciounidad, stock=:stock where nomeprod= :nomeprod')
+                    query1.finish()
+                    query2.prepare('select preciounidad from productos where nomeprod = :nomeprod')
+                    query2.bindValue(':nomeprod',nombre)
+
+                    if query2.exec_():
+                        while query2.next():
+                            query2.bindValue(':preciounidad',float(precio))
+                            query2.bindValue(':stock',int(stock))
+                            print('Actualizado')
+                    else:
+                        print('error en la actualizacion',query2.lastError().text())
+
+                    query2.finish()
 
             else:
                 query = QtSql.QSqlQuery()
@@ -316,14 +336,14 @@ class Eventos():
                 query.bindValue(':nomeprod',str(nombre))
                 query.bindValue(':preciounidad',float(precio))
                 query.bindValue(':stock',int(stock))
-                print("Error baja ventasFact:")
-                if query.exec_():
 
+                if query.exec_():
+                    print("Insertado correctamente")
                     query.finish()
                 else:
                     print("Error baja ventasFact: ", query.lastError().text())
                 query.finish()
-                query1.finish()
                 print('nuevo creado')
 
         print("---------")
+

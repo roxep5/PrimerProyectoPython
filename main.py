@@ -162,7 +162,7 @@ class Main(QtWidgets.QMainWindow):
             var.ui.actionFacturas_Cliente.triggered.connect(Printer.facporCli)
             var.ui.actionRestaurar.triggered.connect(events.Eventos.restaurarBD)
             var.ui.actionBackup.triggered.connect(events.Eventos.Backup)
-            var.ui.actionImportar_Datos.triggered.connect(events.Eventos.importarDatos)
+            var.ui.actionImportar_Datos.triggered.connect(events.Eventos.ventanaImp)
         def closeEvent(self,event):
             if event:
                 events.Eventos.Salir(event)
