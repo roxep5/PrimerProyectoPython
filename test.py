@@ -45,20 +45,16 @@ class MyTestCase(unittest.TestCase):
         except Exception as error:
             print('Error listado de la tabla de ventas: %s'%str(error))
         self.assertEqual(round(float(valor),2), round(float(var.fac),2),msg)
-    def test_cargar_cliente(self):
-        nombre = "Jose"
-        dni = 1
-        msg="Error no se ha cargado bien"
-        query = QtSql.QSqlQuery()
-        value=""
-        query.prepare('select * from clientes where codigo=:codigo')
-        query.bindValue(':codigo', dni)
 
-        if query.exec_():
-            print(query.value(0))
-            while query.next():
-                print(query.value(0))
-                value = str(query.value(3))
-        self.assertNotEqual(nombre, value, msg)
+    def test_cargar_cliente(self):
+        print("Hola")
+        nombre = "God of war"
+        codigo=1
+        msg = "Error no se ha cargado bien"
+
+        print("Hola")
+        value = conexion.Conexion.comprobarNombre(int(codigo))
+        self.assertEqual(nombre, value, msg)
+
 if __name__ == '__main__':
     unittest.main()

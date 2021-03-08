@@ -347,3 +347,27 @@ class Eventos():
 
         print("---------")
 
+        def importar_excel(self):
+
+            documento = xlrd.open_workbook("MercaEstadisticas.xls")
+
+            productos = documento.sheet_by_index(0)
+
+            for i in range(1, productos.nrows):
+                nombre = productos.cell_value(i, 0)
+                precio = productos.cell_value(i, 1)
+                stock = productos.cell_value(i, 2)
+                query = QtSql.QSqlQuery()
+                query.prepare(
+                    'insert into productos (producto, preciounidad, stock) values (:producto, :preciounidad, :stock)')
+                query.bindValue(':producto', str(nombre))
+                query.bindValue(':preciounidad', float(precio))
+                query.bindValue(':stock', int(stock))
+
+            if query.exec_():
+                print("Insertado correctamente")
+                query.finish()
+            else:
+                print("Error baja ventasFact: ", query.lastError().text())
+            query.finish()
+

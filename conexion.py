@@ -19,19 +19,18 @@ class Conexion():
    de aviso.
 
     '''
+
     def db_connect(filename):
-        db=QtSql.QSqlDatabase.addDatabase('QSQLITE')
+        db = QtSql.QSqlDatabase.addDatabase('QSQLITE')
         db.setDatabaseName(filename)
         if not db.open():
-            QtWidgets.QtMessageBox.critical(None,'No se puede abrir la base de datos',
+            QtWidgets.QtMessageBox.critical(None, 'No se puede abrir la base de datos',
                                             'No se puede establecer conexion.\n''Haz Click para Cancelar.',
                                             QtWidgets.QMessageBox.Cancel)
             return False
         else:
             print('Conexion establecida')
         return True
-
-
 
     def altaCli(cliente):
         '''
@@ -61,13 +60,13 @@ class Conexion():
         # pagos = ' '.join(cliente[7]) si quiesesemos un texto, pero nos viene mejor meterlo como una lista
         query.bindValue(':formapago', str(cliente[8]))
 
-
         if query.exec_():
             print("Inserción Correcta")
             Conexion.mostrarClientes(None)
-            var.ui.lblstatus.setText('Insercion correcta: cliente con dni ' + cliente[0]+'')
+            var.ui.lblstatus.setText('Insercion correcta: cliente con dni ' + cliente[0] + '')
         else:
             print("Error: altacli ", query.lastError().text())
+
     def mostrarClientes(self):
         '''
 
@@ -77,21 +76,22 @@ class Conexion():
         :rtype: None
 
         '''
-        index=0
-        query=QtSql.QSqlQuery()
+        index = 0
+        query = QtSql.QSqlQuery()
         query.prepare('select dni, apelidos, nome from clientes')
         if query.exec_():
             while query.next():
-                dni=query.value(0)
-                apelidos=query.value(1)
-                nombre=query.value(2)
-                var.ui.cliTable.setRowCount(index+1)
-                var.ui.cliTable.setItem(index,0,QtWidgets.QTableWidgetItem(dni))
-                var.ui.cliTable.setItem(index,1,QtWidgets.QTableWidgetItem(apelidos))
-                var.ui.cliTable.setItem(index,2,QtWidgets.QTableWidgetItem(nombre))
-                index+=1
+                dni = query.value(0)
+                apelidos = query.value(1)
+                nombre = query.value(2)
+                var.ui.cliTable.setRowCount(index + 1)
+                var.ui.cliTable.setItem(index, 0, QtWidgets.QTableWidgetItem(dni))
+                var.ui.cliTable.setItem(index, 1, QtWidgets.QTableWidgetItem(apelidos))
+                var.ui.cliTable.setItem(index, 2, QtWidgets.QTableWidgetItem(nombre))
+                index += 1
         else:
-            print("Error mostrar clientes: ",query.lastError().text())
+            print("Error mostrar clientes: ", query.lastError().text())
+
     def bajaCli(dni):
         '''
 
@@ -107,16 +107,16 @@ class Conexion():
         Muestra mensje resultado en la barra de estado
 
         '''
-        query=QtSql.QSqlQuery()
+        query = QtSql.QSqlQuery()
         query.prepare('delete from clientes where dni= :dni')
-        query.bindValue(':dni',dni)
+        query.bindValue(':dni', dni)
         if query.exec_():
             print('Baja cliente')
-            var.ui.lblstatus.setText('Cliente con dni '+dni+' dado de baja')
+            var.ui.lblstatus.setText('Cliente con dni ' + dni + ' dado de baja')
         else:
-            print("Error baja clientes: ",query.lastError().text())
+            print("Error baja clientes: ", query.lastError().text())
 
-    def modifCli(codigo,newdata):
+    def modifCli(codigo, newdata):
         '''
 
         Módulo que actualiza datos de clinte
@@ -132,12 +132,12 @@ class Conexion():
         En realidad toma todos los datos que hay en los widgets de la pantalla clientes.
 
         '''
-        print(codigo,"   ",newdata)
-        query=QtSql.QSqlQuery()
-        codigo=int(codigo)
+        print(codigo, "   ", newdata)
+        query = QtSql.QSqlQuery()
+        codigo = int(codigo)
         query.prepare('update clientes set dni=:dni, apelidos=:apelidos,nome=:nome,'
                       ' direccion=:direccion,provincia=:provincia,sexo=:sexo,formapago=:formapago where codigo=:codigo')
-        query.bindValue(':codigo',int(codigo))
+        query.bindValue(':codigo', int(codigo))
         query.bindValue(':dni', str(newdata[0]))
         query.bindValue(':apelidos', str(newdata[1]))
         query.bindValue(':nome', str(newdata[2]))
@@ -152,7 +152,7 @@ class Conexion():
             print('Cliente modificado')
             var.ui.lblstatus.setText('Alta con cliente dni ' + newdata[0])
         else:
-            print('error modificar cliente: ',query.lastError().text())
+            print('error modificar cliente: ', query.lastError().text())
 
     def cargarCliente(self):
         '''
@@ -164,11 +164,11 @@ class Conexion():
 
         '''
         try:
-            dni=var.ui.lnDNI.text()
-            query=QtSql.QSqlQuery()
+            dni = var.ui.lnDNI.text()
+            query = QtSql.QSqlQuery()
 
             query.prepare('select * from clientes where dni=:dni')
-            query.bindValue(':dni',dni)
+            query.bindValue(':dni', dni)
             if query.exec_():
                 while query.next():
                     var.ui.lblCodcli.setText(str(query.value(0)))
@@ -182,8 +182,7 @@ class Conexion():
                     var.ui.spinEdad.setValue(int(query.value(9)))
                     var.ui.cmbProv.setCurrentText(str(query.value(6)))
 
-
-                    if str(query.value(7))=='Mujer':
+                    if str(query.value(7)) == 'Mujer':
                         var.ui.rbtFem.setChecked(True)
                         var.ui.rbtMasc.setChecked(False)
 
@@ -196,9 +195,10 @@ class Conexion():
                         var.chkpago[1].setChecked(True)
                     if 'Transferencia' in query.value(8):
                         var.chkpago[2].setChecked(True)
-            #print(str(query.value(8)))
+            # print(str(query.value(8)))
         except Exception as error:
             print('Error: cargarCli %s ' % str(error))
+
     def buscarCli(dni):
         try:
             '''
@@ -246,7 +246,8 @@ class Conexion():
             # print(str(query.value(8)))
         except Exception as error:
             print('Error: cargarCli %s ' % str(error))
-#Productos
+
+    # Productos
     def altaProd(Prod):
         '''
 
@@ -265,13 +266,14 @@ class Conexion():
         query.prepare('insert into Productos (NomeProd,PrecioUnidad,Stock)'
                       'VALUES (:NomeProd, :PrecioUnidad, :Stock)')
         query.bindValue(':NomeProd', str(Prod[0]))
-        query.bindValue(':PrecioUnidad', round(float(Prod[1]),2))
+        query.bindValue(':PrecioUnidad', round(float(Prod[1]), 2))
         query.bindValue(':Stock', int(Prod[2]))
         if query.exec_():
             print("Inserción Correcta")
             var.ui.lblstatus.setText('Insercion correcta Producto:  ' + Prod[0] + '')
         else:
             print("Error: altaProd ", query.lastError().text())
+
     def mostrarProductos(self):
         '''
 
@@ -281,8 +283,8 @@ class Conexion():
         :rtype: None
 
         '''
-        index=0
-        query=QtSql.QSqlQuery()
+        index = 0
+        query = QtSql.QSqlQuery()
         query.prepare('select * from Productos order by NomeProd')
         if query.exec_():
             while query.next():
@@ -320,6 +322,7 @@ class Conexion():
             var.ui.lblstatus.setText('Producto con id ' + id + ' dado de baja')
         else:
             print("Error baja Producto: ", query.lastError().text())
+
     def cargarProd(cod):
         '''
 
@@ -343,6 +346,7 @@ class Conexion():
                 var.ui.editNombreProd.setText(str(query.value(0)))
                 var.ui.editPrecioProd.setText(str(query.value(1)))
                 var.ui.editStock.setText(str(query.value(2)))
+
     def modificarProd(codigo, newdata):
         '''
 
@@ -370,7 +374,7 @@ class Conexion():
         query.bindValue(':NomeProd', str(newdata[0]))
         query.bindValue(':PrecioUnidad', round(float(newdata[1])))
         query.bindValue(':Stock', int(newdata[2]))
-        print( newdata)
+        print(newdata)
         if query.exec_():
             print('producto modificado')
             var.ui.lblstatus.setText('producto con id modificado' + str(codigo))
@@ -389,15 +393,14 @@ class Conexion():
         '''
         try:
             var.cmbVenta.clear()
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             var.cmbVenta.addItem('')
             query.prepare('select Codigo, NomeProd from productos order by NomeProd')
             if query.exec_():
                 while query.next():
                     var.cmbVenta.addItem(str(query.value(1)))
         except Exception as error:
-            print("error en cargar cmbventa %s "%str(error))
-
+            print("error en cargar cmbventa %s " % str(error))
 
     def altaFact(dni, fecha, apel):
         '''
@@ -419,22 +422,22 @@ class Conexion():
 
         '''
         try:
-            query=QtSql.QSqlQuery()
+            query = QtSql.QSqlQuery()
             query.prepare('insert into facturas(dni, fecha, apellidos) VALUES (:dni, :fecha, :apellidos)')
-            query.bindValue(':dni',str(dni))
-            query.bindValue(':fecha',str(fecha))
-            query.bindValue(':apellidos',str(apel))
+            query.bindValue(':dni', str(dni))
+            query.bindValue(':fecha', str(fecha))
+            query.bindValue(':apellidos', str(apel))
             if query.exec_():
                 var.ui.lblstatus.setText('Factura creada')
             else:
                 print("Error alta factura: ", query.lastError().text())
-            query1=QtSql.QSqlQuery()
+            query1 = QtSql.QSqlQuery()
             query1.prepare('select max(codfactura) from facturas')
             if query1.exec_():
                 while query1.next():
                     var.ui.lblCodFact.setText(str(query1.value(0)))
         except Exception as error:
-            print("error en altafact %s "%str(error))
+            print("error en altafact %s " % str(error))
 
     def mostrarFacturas(self):
         '''
@@ -445,21 +448,21 @@ class Conexion():
         :rtype: None
 
         '''
-        index=0
-        query=QtSql.QSqlQuery()
+        index = 0
+        query = QtSql.QSqlQuery()
         query.prepare('select Codfactura,Dni, fecha from facturas')
         if query.exec_():
             while query.next():
-                codigo=query.value(0)
-                DNI=query.value(1)
-                fecha=query.value(2)
-                var.ui.tableNfactura.setRowCount(index+1)
-                var.ui.tableNfactura.setItem(index,0,QtWidgets.QTableWidgetItem(str(codigo)))
-                var.ui.tableNfactura.setItem(index,1,QtWidgets.QTableWidgetItem(str(DNI)))
-                var.ui.tableNfactura.setItem(index,2,QtWidgets.QTableWidgetItem(str(fecha)))
-                index+=1
+                codigo = query.value(0)
+                DNI = query.value(1)
+                fecha = query.value(2)
+                var.ui.tableNfactura.setRowCount(index + 1)
+                var.ui.tableNfactura.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codigo)))
+                var.ui.tableNfactura.setItem(index, 1, QtWidgets.QTableWidgetItem(str(DNI)))
+                var.ui.tableNfactura.setItem(index, 2, QtWidgets.QTableWidgetItem(str(fecha)))
+                index += 1
         else:
-            print("Error mostrar facturas: ",query.lastError().text())
+            print("Error mostrar facturas: ", query.lastError().text())
 
     def cargarFactura(cod):
         '''
@@ -484,6 +487,7 @@ class Conexion():
                 var.ui.editApelido.setText(str(query.value(2)))
         else:
             print("Error cargar facturas: ", query.lastError().text())
+
     def obtenetCodPrec(articulo):
         '''
 
@@ -495,28 +499,30 @@ class Conexion():
         :rtype: lista que contiene código y precio del producto
 
         '''
-        dato=[]
-        query=QtSql.QSqlQuery()
+        dato = []
+        query = QtSql.QSqlQuery()
         query.prepare('select codigo, precioUnidad from productos where NomeProd =:articulo')
-        query.bindValue(':articulo',str(articulo))
+        query.bindValue(':articulo', str(articulo))
         if query.exec_():
             while query.next():
-                dato=[str(query.value(0)),str(query.value(1))]
+                dato = [str(query.value(0)), str(query.value(1))]
             return dato
         else:
             print("Error obtener cod precio: ", query.lastError().text())
             return None
+
     def cargarComboVenta(cmbVenta):
         var.cmbVenta.clear()
-        query=QtSql.QSqlQuery()
+        query = QtSql.QSqlQuery()
         var.cmbVenta.addItem('')
         query.prepare('select codigo, nomeprod from productos order by nomeProd ')
         if query.exec_():
             while query.next():
                 var.cmbVenta.addItem(str(query.value(1)))
         else:
-            print("Error cargar combo venta: ",query.lastError().text())
-    #def listadoVentasfac(codfact):
+            print("Error cargar combo venta: ", query.lastError().text())
+
+    # def listadoVentasfac(codfact):
 
     def altaVenta(self):
         '''
@@ -530,22 +536,23 @@ class Conexion():
         Tras realizar la venta se crea una nueva factura incluyendo el combobox de selección de artículor
 
         '''
-        query=QtSql.QSqlQuery()
-        query.prepare('insert into ventas (codfact, codart, cantidad,precio) VALUES (:codfact,:codart,:cantidad, :precio)')
-        query.bindValue(':codfact',int(var.venta[0]))
-        query.bindValue(':codart',int(var.venta[1]))
-        query.bindValue(':cantidad',int(var.venta[3]))
-        query.bindValue(':precio',int(var.venta[4]))
-        row=var.ui.tableArticulos.currentRow()
+        query = QtSql.QSqlQuery()
+        query.prepare(
+            'insert into ventas (codfact, codart, cantidad,precio) VALUES (:codfact,:codart,:cantidad, :precio)')
+        query.bindValue(':codfact', int(var.venta[0]))
+        query.bindValue(':codart', int(var.venta[1]))
+        query.bindValue(':cantidad', int(var.venta[3]))
+        query.bindValue(':precio', int(var.venta[4]))
+        row = var.ui.tableArticulos.currentRow()
         if query.exec_():
             var.ui.lblstatus.setText('Venta realizada')
-            var.ui.tableArticulos.setItem(row,1,QtWidgets.QTableWidgetItem(str(var.venta[2])))
-            var.ui.tableArticulos.setItem(row,2,QtWidgets.QTableWidgetItem(str(var.venta[3])))
-            var.ui.tableArticulos.setItem(row,3,QtWidgets.QTableWidgetItem(str(var.venta[4])))
-            var.ui.tableArticulos.setItem(row,4,QtWidgets.QTableWidgetItem(str(var.venta[5])))
-            row = row+1
+            var.ui.tableArticulos.setItem(row, 1, QtWidgets.QTableWidgetItem(str(var.venta[2])))
+            var.ui.tableArticulos.setItem(row, 2, QtWidgets.QTableWidgetItem(str(var.venta[3])))
+            var.ui.tableArticulos.setItem(row, 3, QtWidgets.QTableWidgetItem(str(var.venta[4])))
+            var.ui.tableArticulos.setItem(row, 4, QtWidgets.QTableWidgetItem(str(var.venta[5])))
+            row = row + 1
             var.ui.tableArticulos.insertRow(row)
-            var.ui.tableArticulos.setCellWidget(row,1,var.cmbVenta)
+            var.ui.tableArticulos.setCellWidget(row, 1, var.cmbVenta)
             var.ui.tableArticulos.scrollToBottom()
             Conexion.cargarComboVenta(var.cmbVenta)
         else:
@@ -573,47 +580,46 @@ class Conexion():
         """
         try:
             var.ui.tableArticulos.clearContents()
-            var.subfac=0.00
-            subtotal=0.00
-            query=QtSql.QSqlQuery()
-            query1=QtSql.QSqlQuery()
-            query.prepare('select clientes, codart,cantidad from ventas where codfact=:codfact')
-            query.bindValue(':codfact',int(codfact))
+            var.subfac = 0.00
+            subtotal = 0.00
+            query = QtSql.QSqlQuery()
+            query1 = QtSql.QSqlQuery()
+            query.prepare('select clientes, codart, cantidad from ventas where codfact=:codfact')
+            query.bindValue(':codfact', int(codfact))
             if query.exec_():
-                index=0
+                index = 0
                 while query.next():
-                    codventa=query.value(0)
-                    codartventa=query.value(1)
-                    cantidad=query.value(2)
-                    var.ui.tableArticulos.setRowCount(index+1)
-                    var.ui.tableArticulos.setItem(index,0,QtWidgets.QTableWidgetItem(str(codventa)))
+                    codventa = query.value(0)
+                    codartventa = query.value(1)
+                    cantidad = query.value(2)
+                    var.ui.tableArticulos.setRowCount(index + 1)
+                    var.ui.tableArticulos.setItem(index, 0, QtWidgets.QTableWidgetItem(str(codventa)))
                     query1.prepare('select nomeprod, precioUnidad from productos where codigo=:codartventa')
-                    query1.bindValue(':codartventa',int(codartventa))
+                    query1.bindValue(':codartventa', int(codartventa))
                     if query1.exec_():
                         while query1.next():
-                            articulo=query1.value(0)
-                            precio=query1.value(1)
-                            var.ui.tableArticulos.setItem(index,1,QtWidgets.QTableWidgetItem(str(articulo)))
-                            var.ui.tableArticulos.setItem(index,2,QtWidgets.QTableWidgetItem(str(cantidad)))
-                            subtotal=round(float(cantidad)*float(precio),2)
-                            var.ui.tableArticulos.setItem(index,3,QtWidgets.QTableWidgetItem(str(precio)))
-                            var.ui.tableArticulos.setItem(index,4,QtWidgets.QTableWidgetItem(str(subtotal)))
-                    index+=1
-                    var.subfac=round(float(subtotal)+float(var.subfac),2)
-            if int(index)>0:
+                            articulo = query1.value(0)
+                            precio = query1.value(1)
+                            var.ui.tableArticulos.setItem(index, 1, QtWidgets.QTableWidgetItem(str(articulo)))
+                            var.ui.tableArticulos.setItem(index, 2, QtWidgets.QTableWidgetItem(str(cantidad)))
+                            subtotal = round(float(cantidad) * float(precio), 2)
+                            var.ui.tableArticulos.setItem(index, 3, QtWidgets.QTableWidgetItem(str(precio)))
+                            var.ui.tableArticulos.setItem(index, 4, QtWidgets.QTableWidgetItem(str(subtotal)))
+                    index += 1
+                    var.subfac = round(float(subtotal) + float(var.subfac), 2)
+            if int(index) > 0:
                 ventas.Ventas.prepararTabVentas(index)
             else:
                 print(index)
                 var.ui.tableArticulos.setRowCount(0)
                 ventas.Ventas.prepararTabVentas(0)
             var.ui.lblSubtotal.setText(str(var.subfac))
-            var.iva=round(float(var.subfac)*0.21,2)
+            var.iva = round(float(var.subfac) * 0.21, 2)
             var.ui.lblIVA.setText(str(var.iva))
-            var.fac=round(float(var.iva)+float(var.subfac),2)
+            var.fac = round(float(var.iva) + float(var.subfac), 2)
             var.ui.lblTotal.setText(str(var.fac))
         except Exception as error:
             print('Error Listado de la tabla de ventas: %s ' % str(error))
-
 
     def borrarVenta(codVenta):
         '''
@@ -627,13 +633,14 @@ class Conexion():
         Muestra mensaje en la barra de estado
 
         '''
-        query=QtSql.QSqlQuery()
+        query = QtSql.QSqlQuery()
         query.prepare('delete from ventas where Clientes = :clientes')
-        query.bindValue(':clientes',codVenta)
+        query.bindValue(':clientes', codVenta)
         if query.exec_():
             var.ui.lblstatus.setText('Factura Anulada')
         else:
-            print("Error baja venta: ",query.lastError().text())
+            print("Error baja venta: ", query.lastError().text())
+
     def borrarFacturas(codFactura):
         '''
 
@@ -648,18 +655,36 @@ class Conexion():
         borrar todas aquellas ventas asociadas a esa factura.
 
         '''
-        query=QtSql.QSqlQuery()
+        query = QtSql.QSqlQuery()
         query.prepare('delete from Facturas where CodFactura=:codfactura')
-        query.bindValue(':codfactura',codFactura)
+        query.bindValue(':codfactura', codFactura)
         if query.exec_():
             var.ui.lblstatus.setText('Factura Anulada')
         else:
-            print("Error baja venta: ",query.lastError().text())
+            print("Error baja venta: ", query.lastError().text())
+
     def borrarVentasFacturas(codFactura):
-        query=QtSql.QSqlQuery()
+        query = QtSql.QSqlQuery()
         query.prepare('delete from Ventas where CodFact=:codfact')
-        query.bindValue(':codfact',codFactura)
+        query.bindValue(':codfact', codFactura)
         if query.exec_():
             print("Ventas eliminadas")
         else:
-            print("Error baja ventasFact: ",query.lastError().text())
+            print("Error baja ventasFact: ", query.lastError().text())
+
+    def comprobarNombre(codigo):
+        query1 = QtSql.QSqlQuery()
+        query1.prepare('select nomeprod from productos where codigo = :codigo')
+        query1.bindValue(':codigo', 1)
+        #query1.bindValue(':codigo', codigo)
+        value = ''
+        if query1.exec_():
+            print("Hola")
+            while query1.next():
+                print("Hola")
+                value = str(query1.value(0))
+        print("Hola")
+
+        return value
+        # he intentado muchas cosas para que funcione el testeo... por alguna razon no carga la base de datos
+        # si vale de algo... te lo dejo comentado, si lo es me gustaria que me lo pusieras
